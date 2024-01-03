@@ -24,6 +24,23 @@
   position: relative;
 }
 
+@mixin record-btn {
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--Purple, #5c5a79);
+  color: var(--Enactive, #f0dcd8);
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
 .video-container {
   width: 100%;
   display: flex;
@@ -62,7 +79,49 @@
         width: 100%;
         text-align: start;
       }
-      
+      .video-media {
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(48px);
+        display: flex;
+        padding: 20px 24px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+        height: 220px;
+        overflow: hidden;
+
+        > p {
+          color: #fff;
+          font-feature-settings: "clig" off, "liga" off;
+          font-family: Inter;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 22px;
+        }
+      }
+
+      .record-button {
+        @include record-btn;
+      }
+      .record-button-d {
+        @include record-btn;
+        cursor: not-allowed;
+      }
+
+      .done-media {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+
+        .delete-video {
+          cursor: pointer;
+        }
+      }
     }
 
     &__left {
@@ -246,5 +305,23 @@
     backdrop-filter: blur(48px);
     padding: 16px 0;
     cursor: not-allowed;
+  }
+
+  .next {
+    @include btn;
+    color: #d7d6de;
+    margin: 50px 0 10px 0;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(29, 15, 39, 0.4);
+    backdrop-filter: blur(48px);
+    padding: 16px 0;
+  }
+  .skip {
+    @include btn;
+    background: transparent;
+    border: none;
+    color: #f0dcd8;
+    opacity: 0.65;
   }
 }

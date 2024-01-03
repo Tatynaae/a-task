@@ -6,10 +6,11 @@ import { ReactComponent as Down } from "../../assets/icons/down-arrow.svg";
 import { ReactComponent as Up } from "../../assets/icons/up-arrow.svg";
 import { ReactComponent as Delete } from "../../assets/icons/x.svg";
 import PreviewModal from "../../components/PreviewModal";
+import FirstQuestion from "./questions/FirstQuestion";
 import AppOverlay from "../../components/AppOverlay";
 import FileInput from "../../components/FileInput";
+import VideoRecord from "./VideoRecord";
 import "./Video.scss";
-import FirstQuestion from "./questions/FirstQuestion";
 
 const Video = () => {
   const [selectedStyle, setSelectedStyle] = useState(false);
@@ -88,10 +89,10 @@ const Video = () => {
     <>
       {question ? (
         <section className="video-container">
-          <FirstQuestion />
+          <FirstQuestion OnTitleChange={SetStyle} title={story.storyTitle} />
           <div className="video-content">
             <div className="video-content__left">
-            <p>Preview</p>
+              <p>Preview</p>
               <div className="upload">
                 {story.storyImage === null ? (
                   <div className="upload__box">
@@ -113,13 +114,10 @@ const Video = () => {
                 )}
               </div>
             </div>
-            <div className="video-content__right">
-              <div className=""></div>
-              <div>
-                <button>Record</button>
-              </div>
-            </div>
+            <VideoRecord />
           </div>
+          <button className="next">Next question</button>
+          <button className="skip">Skip question</button>
         </section>
       ) : (
         <section className="video-container">

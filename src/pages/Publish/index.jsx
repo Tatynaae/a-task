@@ -5,11 +5,14 @@ import AppOverlay from "../../components/AppOverlay";
 import SignUp from "../../components/SignUp";
 import Element from "./Element";
 import "./Publish.scss";
+import PreviewModal from "../../components/PreviewModal";
 
 const Publish = () => {
+  const { images } = useImages();
   const [title, SetTitle] = useState("");
   const [overlay, setOverlay] = useState(false);
-  const { images } = useImages();
+  const [childOverlay, setChildOverlay] = useState(false);
+  const [childFile, setChildFile] = useState(null);
   const AllImages = Object.values(images);
 
   const Close = () => {
@@ -19,6 +22,11 @@ const Publish = () => {
   const OnTitleChange = (e) => {
     SetTitle(e.target.value);
   };
+
+  const CloseChildOverlay = () => {
+    setChildOverlay(false);
+  };
+
   return (
     <>
       <div className="publish-container">
@@ -45,7 +53,12 @@ const Publish = () => {
           <div className="images-list">
             <div className="elements">
               {AllImages.map((el, idx) => (
-                <Element el={el} id={idx} />
+                <Element
+                  el={el}
+                  id={idx}
+                  setChildOverlay={setChildOverlay}
+                  setChildFile={setChildFile}
+                />
               ))}
             </div>
           </div>
@@ -54,7 +67,21 @@ const Publish = () => {
           Publish video
         </button>
       </div>
-      {overlay ? <AppOverlay close={Close} children={<SignUp close={Close}/>}/> : null}
+      {overlay ? (
+        <AppOverlay close={Close} children={<SignUp close={Close} />} />
+      ) : null}
+      {childOverlay ? (
+        <AppOverlay
+          close={CloseChildOverlay}
+          children={
+            <PreviewModal
+              image={childFile}
+              close={CloseChildOverlay}
+              cencel={CloseChildOverlay}
+            />
+          }
+        />
+      ) : null}
     </>
   );
 };

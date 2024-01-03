@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { ReactComponent as Pencil } from "../../assets/icons/Pencil.svg";
 import "./Element.scss";
-const Element = ({ el, id }) => {
-  const [edit, setEdit] = useState(false);
 
+const Element = ({ el, id, setChildOverlay, setChildFile }) => {
+  const [edit, setEdit] = useState(false);
+  setChildFile(el)
   return (
     <div
       key={id}
@@ -19,7 +20,7 @@ const Element = ({ el, id }) => {
         </div>
       </div>
       {edit && (
-        <div className="right">
+        <div className="right" onClick={() => setChildOverlay(true)}>
           <Pencil />
           Edit
         </div>

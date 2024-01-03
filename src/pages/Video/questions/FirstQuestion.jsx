@@ -12,7 +12,7 @@ const FirstQuestion = ({ OnTitleChange, title }) => {
           className=""
           placeholder="Pre filled text here for question #1"
           onChange={(e) => OnTitleChange(e)}
-          value={title}
+          default={title}
         />
         <Question />
       </div>
