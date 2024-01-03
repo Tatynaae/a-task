@@ -1,0 +1,46 @@
+.header {
+  width: 100%;
+  border-radius: 12px 12px 0px 0px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(29, 15, 39, 0.05);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  // z-index: 15;
+  .container {
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      &-title {
+        color: #fff;
+        font-feature-settings: "clig" off, "liga" off;
+        font-family: Source Serif Pro;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 28px;
+        letter-spacing: -0.5px;
+      }
+    }
+
+    .save {
+      border-radius: 2px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(48px);
+      color: #fbf8c8;
+      text-align: center;
+      font-feature-settings: "clig" off, "liga" off;
+      font-family: Source Serif Pro;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 20px;
+      padding: 12px 32px ;
+    }
+  }
+}

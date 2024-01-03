@@ -1,0 +1,51 @@
+@mixin text {
+    color: #f0dcd8;
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: -0.5px;
+  }
+.question {
+    width: 100%;
+    padding: 24px;
+    border-radius: 6px;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    background: rgba(29, 15, 39, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &--title {
+      color: #f0dcd8;
+      font-family: Inter;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 140%;
+    }
+
+    &--story-title {
+      width: 100%;
+      padding: 20px 24px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(251, 248, 200, 0.1);
+      backdrop-filter: blur(48px);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      > input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        @include text;
+
+        &::placeholder {
+          @include text;
+        }
+      }
+    }
+  }
