@@ -1,0 +1,116 @@
+.recording {
+  width: 705px;
+  height: 611px;
+  border-radius: 6px;
+  background: #fff;
+
+  &__head {
+    width: 100%;
+    padding: 17px;
+    border-bottom: 1px solid #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > p {
+      color: var(--Dark-Blue, #36384f);
+      font-family: Inter;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .close {
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    padding: 23px 40px 28px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .start-recording {
+      width: 625px;
+      height: 423px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .allow {
+      width: 625px;
+      height: 423px;
+      border-radius: 6px;
+      background: #252525;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &__warning {
+        display: inline-flex;
+        height: 51px;
+        padding: 24px;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(48px);
+
+        > p {
+          color: var(--Yellow-White, #fbf8c8);
+          font-family: Inter;
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 20px;
+          > span {
+            font-weight: 600;
+            text-decoration-line: underline;
+          }
+        }
+      }
+    }
+    &--buttons {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &__upload {
+        color: var(--Blue, #2c6da3);
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+        border: none;
+        background: transparent;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      &__record {
+        border: none;
+        padding: 12px 32px;
+        border-radius: 6px;
+        background: var(--Red, #ff5372);
+        color: #fff;
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      &__done {
+        border: none;
+        padding: 12px 32px;
+        border-radius: 6px;
+        background: #59b566;
+        color: #fff;
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+  }
+}
