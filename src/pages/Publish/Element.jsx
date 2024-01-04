@@ -1,16 +1,23 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as Pencil } from "../../assets/icons/Pencil.svg";
 import "./Element.scss";
 
-const Element = ({ el, id, setChildOverlay, setChildFile }) => {
+const Element = ({ el, id, ViewImage }) => {
   const [edit, setEdit] = useState(false);
-  setChildFile(el)
+  const navigate = useNavigate();
+
+  const Edit = () => {
+    navigate("/");
+  };
+
   return (
     <div
       key={id}
       className="element"
       onMouseOver={() => setEdit(true)}
       onMouseLeave={() => setEdit(false)}
+      onClick={() => ViewImage(el)}
     >
       <div className={edit ? "left-short" : "left"}>
         <img src={el} alt="img" />
@@ -20,7 +27,7 @@ const Element = ({ el, id, setChildOverlay, setChildFile }) => {
         </div>
       </div>
       {edit && (
-        <div className="right" onClick={() => setChildOverlay(true)}>
+        <div className="right" onClick={Edit}>
           <Pencil />
           Edit
         </div>

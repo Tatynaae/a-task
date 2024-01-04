@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ReactComponent as Question } from "../../assets/icons/question.svg";
-import PreviewModal from "../../components/PreviewModal";
 import { useImages } from "../../context/ImagesContext";
 import AppOverlay from "../../components/AppOverlay";
 import SignUp from "../../components/SignUp";
@@ -11,9 +10,8 @@ const Publish = () => {
   const { images } = useImages();
   const [title, SetTitle] = useState("");
   const [overlay, setOverlay] = useState(false);
-  const [childOverlay, setChildOverlay] = useState(false);
-  const [childFile, setChildFile] = useState(null);
   const AllImages = Object.values(images);
+  const [viewImage, setViewImage] = useState(images.firstImage);
 
   const Close = () => {
     setOverlay(false);
@@ -23,8 +21,8 @@ const Publish = () => {
     SetTitle(e.target.value);
   };
 
-  const CloseChildOverlay = () => {
-    setChildOverlay(false);
+  const ViewImage = (image) => {
+    setViewImage(image);
   };
 
   return (
@@ -47,18 +45,13 @@ const Publish = () => {
           <div className="images-preview">
             <p className="images-preview__title">Preview</p>
             <div className="images-preview__image">
-              <img src={images.firstImage} alt="" />
+              <img src={viewImage} alt="" />
             </div>
           </div>
           <div className="images-list">
             <div className="elements">
               {AllImages.map((el, idx) => (
-                <Element
-                  el={el}
-                  id={idx}
-                  setChildOverlay={setChildOverlay}
-                  setChildFile={setChildFile}
-                />
+                <Element el={el} id={idx} ViewImage={ViewImage}/>
               ))}
             </div>
           </div>
@@ -69,18 +62,6 @@ const Publish = () => {
       </div>
       {overlay ? (
         <AppOverlay close={Close} children={<SignUp close={Close} />} />
-      ) : null}
-      {childOverlay ? (
-        <AppOverlay
-          close={CloseChildOverlay}
-          children={
-            <PreviewModal
-              image={childFile}
-              close={CloseChildOverlay}
-              cencel={CloseChildOverlay}
-            />
-          }
-        />
       ) : null}
     </>
   );

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSourse } from "../../context/SourseContext";
 import { ReactMic } from "react-mic";
 import { ReactComponent as Save } from "../../assets/icons/check.svg";
 import { ReactComponent as Delete } from "../../assets/icons/delete.svg";
@@ -6,10 +7,8 @@ import { ReactComponent as Record } from "../../assets/icons/record.svg";
 import { ReactComponent as StartIcon } from "../../assets/icons/pause.svg";
 
 import "./VoiceRecorder.scss";
-import { useSourse } from "../../context/SourseContext";
 
-const VoiceRecorder = ({ able }) => {
-  const [startRecord, setStartRecord] = useState(false);
+const VoiceRecorder = ({ able, setStartRecord, startRecord }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordedBlob, setRecordedBlob] = useState(null);
   const { sourse, setSourse } = useSourse();
@@ -24,6 +23,7 @@ const VoiceRecorder = ({ able }) => {
 
   const onDelete = () => {
     setRecordedBlob(null);
+    setSourse({ ...sourse, audio: null });
     setMinutes(0);
     setSeconds(0);
   };
@@ -71,15 +71,19 @@ const VoiceRecorder = ({ able }) => {
         sourse.audio === null ? "voice--content" : "saved-voice--content"
       }
     >
-      {startRecord && (
+      {startRecord && sourse.audio === null && recordedBlob === null && (
         <>
-          {recordedBlob ? (
+          {sourse.audio ? (
             <audio controls className="audio">
               <source src={recordedBlob.blobURL} />
               Your browser does not support the audio element.
             </audio>
           ) : (
-            <div className={sourse.audio === null ? "voice--content__record" : "none-record"}>
+            <div
+              className={
+                sourse.audio === null ? "voice--content__record" : "none-record"
+              }
+            >
               <p>{`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}</p>
               <ReactMic
                 record={isRecording}
@@ -122,7 +126,7 @@ const VoiceRecorder = ({ able }) => {
         </>
       )}
 
-      {!startRecord && (
+      {recordedBlob === null && !startRecord && (
         <button
           disabled={able}
           onClick={Start}
