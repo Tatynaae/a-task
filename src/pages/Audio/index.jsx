@@ -188,7 +188,7 @@ const Audio = () => {
           </div>
         </form>
         {!able && sourse.audio !== null ? (
-          <button className="next" onClick={() => navigate("/publish")}>
+          <button className="next" onClick={() => navigate("/publish-images")}>
             Next question
           </button>
         ) : (

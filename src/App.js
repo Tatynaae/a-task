@@ -10,7 +10,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Audio />} />
       <Route path="/video" element={<Video />} />
-      <Route path="/publish" element={<Publish />} />
+      <Route path="/publish-images" element={<Publish />} />
+      <Route path="/publish-videos" element={<Publish />} />
       <Route path="/account" element={<Account />} />
     </Routes>
   );

@@ -19,51 +19,69 @@ const PreviewModal = ({ image, video, close, cencel }) => {
     setCroppedVideo(croppedV);
   };
 
+  // const SaveAndContinue = () => {
+  //   if (image) {
+  //     if (images.firstImage === null) {
+  //       setImages({
+  //         ...images,
+  //         firstImage: croppedImageData,
+  //       });
+  //       close();
+  //     } else if (images.firstImage !== null && images.secondImage === null) {
+  //       setImages({
+  //         ...images,
+  //         secondImage: croppedImageData,
+  //       });
+  //       close();
+  //     } else if (
+  //       images.firstImage !== null &&
+  //       images.secondImage !== null &&
+  //       images.thirdImage === null
+  //     ) {
+  //       setImages({
+  //         ...images,
+  //         thirdImage: croppedImageData,
+  //       });
+  //       close();
+  //     } else if (
+  //       images.firstImage !== null &&
+  //       images.secondImage !== null &&
+  //       images.thirdImage !== null &&
+  //       images.fourthImage === null
+  //     ) {
+  //       setImages({
+  //         ...images,
+  //         fourthImage: croppedImageData,
+  //       });
+  //       close();
+  //     } else if (
+  //       images.firstImage !== null &&
+  //       images.secondImage !== null &&
+  //       images.thirdImage !== null &&
+  //       images.fourthImage !== null &&
+  //       images.fifthImage === null
+  //     ) {
+  //       setImages({
+  //         ...images,
+  //         fifthImage: croppedImageData,
+  //       });
+  //       close();
+  //     }
+  //   } else if (video) {
+  //     setVideoMedia(croppedVideo);
+  //     close();
+  //   }
+  // };
+
   const SaveAndContinue = () => {
     if (image) {
-      if (images.firstImage === null) {
+      const imageKeys = ['firstImage', 'secondImage', 'thirdImage', 'fourthImage', 'fifthImage'];
+      const nextImageIndex = imageKeys.findIndex((key) => images[key] === null);
+  
+      if (nextImageIndex !== -1) {
         setImages({
           ...images,
-          firstImage: croppedImageData,
-        });
-        close();
-      } else if (images.firstImage !== null && images.secondImage === null) {
-        setImages({
-          ...images,
-          secondImage: croppedImageData,
-        });
-        close();
-      } else if (
-        images.firstImage !== null &&
-        images.secondImage !== null &&
-        images.thirdImage === null
-      ) {
-        setImages({
-          ...images,
-          thirdImage: croppedImageData,
-        });
-        close();
-      } else if (
-        images.firstImage !== null &&
-        images.secondImage !== null &&
-        images.thirdImage !== null &&
-        images.fourthImage === null
-      ) {
-        setImages({
-          ...images,
-          fourthImage: croppedImageData,
-        });
-        close();
-      } else if (
-        images.firstImage !== null &&
-        images.secondImage !== null &&
-        images.thirdImage !== null &&
-        images.fourthImage !== null &&
-        images.fifthImage === null
-      ) {
-        setImages({
-          ...images,
-          fifthImage: croppedImageData,
+          [imageKeys[nextImageIndex]]: croppedImageData,
         });
         close();
       }
@@ -72,7 +90,6 @@ const PreviewModal = ({ image, video, close, cencel }) => {
       close();
     }
   };
-
   console.log("s1", croppedVideo);
   console.log("s", videoMedia);
 

@@ -121,7 +121,7 @@ const Video = () => {
             </div>
             <VideoRecord />
           </div>
-          <button className="next" onClick={() => navigate('/publish')}>Next question</button>
+          <button className="next" onClick={() => navigate('/publish-videos')}>Next question</button>
           <button className="skip">Skip question</button>
         </section>
       ) : (

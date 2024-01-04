@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { ReactComponent as Question } from "../../assets/icons/question.svg";
 import { useImages } from "../../context/ImagesContext";
 import AppOverlay from "../../components/AppOverlay";
@@ -12,6 +13,7 @@ const Publish = () => {
   const [overlay, setOverlay] = useState(false);
   const AllImages = Object.values(images);
   const [viewImage, setViewImage] = useState(images.firstImage);
+  const location = useLocation();
 
   const Close = () => {
     setOverlay(false);
@@ -45,7 +47,10 @@ const Publish = () => {
           <div className="images-preview">
             <p className="images-preview__title">Preview</p>
             <div className="images-preview__image">
-              {<video controls src={videoMedia} className="video" /> || (
+              {location.pathname === "/publish-videos" && (
+                <video controls src={videoMedia} className="video" />
+              )}
+              {location.pathname === "/publish-images" && (
                 <img src={viewImage} alt="" />
               )}
             </div>

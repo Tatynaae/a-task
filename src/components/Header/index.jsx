@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {ReactComponent as Profile} from '../../assets/icons/Profile.svg'
+import { ReactComponent as Profile } from "../../assets/icons/Profile.svg";
 import Logo from "../../assets/images/logo.svg";
 import AppOverlay from "../AppOverlay";
 import "./Header.scss";
@@ -25,12 +25,13 @@ const Header = () => {
             <img src={Logo} alt="logo" />
             <span className="logo-title">StoryFairy</span>
           </div>
-          {location.pathname === "/" ? (
+          {location.pathname === "/publish-images" ||
+          location.pathname === "/publish-videos" ? (
+            <Profile />
+          ) : (
             <button className="save" onClick={OpenOverlay}>
               Save Your Story
             </button>
-          ) : (
-            <Profile />
           )}
         </div>
       </header>
