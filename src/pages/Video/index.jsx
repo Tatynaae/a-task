@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as Upload } from "../../assets/icons/Upload.svg";
 import { ReactComponent as Question } from "../../assets/icons/question.svg";
 import { ReactComponent as Down } from "../../assets/icons/down-arrow.svg";
@@ -18,6 +19,7 @@ const Video = () => {
   const [selectedStyle, setSelectedStyle] = useState(false);
   const [question, setQuestion] = useState(false);
   const [overlay, setOverlay] = useState(false);
+  const navigate = useNavigate()
 
   const [story, setStory] = useState({
     storyTitle: "",
@@ -119,7 +121,7 @@ const Video = () => {
             </div>
             <VideoRecord />
           </div>
-          <button className="next">Next question</button>
+          <button className="next" onClick={() => navigate('/publish')}>Next question</button>
           <button className="skip">Skip question</button>
         </section>
       ) : (

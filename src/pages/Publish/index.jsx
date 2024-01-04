@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ReactComponent as Question } from "../../assets/icons/question.svg";
-import PreviewModal from "../../components/PreviewModal";
 import { useImages } from "../../context/ImagesContext";
 import AppOverlay from "../../components/AppOverlay";
 import SignUp from "../../components/SignUp";
@@ -8,7 +7,7 @@ import Element from "./Element";
 import "./Publish.scss";
 
 const Publish = () => {
-  const { images } = useImages();
+  const { images, videoMedia } = useImages();
   const [title, SetTitle] = useState("");
   const [overlay, setOverlay] = useState(false);
   const AllImages = Object.values(images);
@@ -46,13 +45,15 @@ const Publish = () => {
           <div className="images-preview">
             <p className="images-preview__title">Preview</p>
             <div className="images-preview__image">
-              <img src={viewImage} alt="" />
+              {<video controls src={videoMedia} className="video" /> || (
+                <img src={viewImage} alt="" />
+              )}
             </div>
           </div>
           <div className="images-list">
             <div className="elements">
               {AllImages.map((el, idx) => (
-                <Element el={el} id={idx} ViewImage={ViewImage}/>
+                <Element el={el} id={idx} ViewImage={ViewImage} />
               ))}
             </div>
           </div>

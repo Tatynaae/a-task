@@ -9,7 +9,7 @@ const CropperVideo = ({ video, onCrop }) => {
     setZoom(newZoom);
   };
 
-  const handleCropComplete = async () => {
+  const handleCropComplete = () => {
     onCrop(video);
   };
 

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as Question } from "../../assets/icons/question.svg";
 import { ReactComponent as Upload } from "../../assets/icons/Upload.svg";
 import { ReactComponent as Image } from "../../assets/icons/Image (Single).svg";
+import { ReactComponent as Record } from "../../assets/icons/record.svg";
 import { ReactComponent as X } from "../../assets/icons/x.svg";
 import { useImages } from "../../context/ImagesContext";
 import { useSourse } from "../../context/SourseContext";
@@ -100,6 +101,10 @@ const Audio = () => {
     event.preventDefault();
   };
 
+  const Start = () => {
+    setStartRecord(true);
+  };
+
   return (
     <>
       <section className="audio-container">
@@ -162,7 +167,22 @@ const Audio = () => {
                 ))}
               </div>
               <div className="record">
-                <VoiceRecorder able={able} startRecord={startRecord} setStartRecord={setStartRecord}/>
+                {!startRecord && sourse.audio === null ? (
+                  <button
+                    disabled={able}
+                    onClick={Start}
+                    className={able ? "disable" : "record-button"}
+                  >
+                    <Record />
+                    Record
+                  </button>
+                ) : (
+                  <VoiceRecorder
+                    able={able}
+                    startRecord={startRecord}
+                    setStartRecord={setStartRecord}
+                  />
+                )}
               </div>
             </div>
           </div>
