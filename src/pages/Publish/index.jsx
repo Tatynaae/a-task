@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { ReactComponent as Question } from "../../assets/icons/question.svg";
+import PreviewModal from "../../components/PreviewModal";
 import { useImages } from "../../context/ImagesContext";
 import AppOverlay from "../../components/AppOverlay";
 import SignUp from "../../components/SignUp";
 import Element from "./Element";
 import "./Publish.scss";
-import PreviewModal from "../../components/PreviewModal";
 
 const Publish = () => {
   const { images } = useImages();
