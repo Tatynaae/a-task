@@ -109,7 +109,7 @@ const Video = () => {
                   </div>
                 ) : (
                   <>
-                    <video controls src={story.storyVideo} className="video" />
+                    <video controls src={videoMedia} className="video" />
                     <div className="delete" onClick={DeleteImage}>
                       <Delete />
                     </div>
