@@ -7,16 +7,19 @@ import { SourseProvider } from "./context/SourseContext";
 import Layout from "./components/Layout";
 import App from "./App";
 import "./index.scss";
+import { SignUpProvider } from "./context/SingUpContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Layout>
-      <ImagesProvider>
-        <SourseProvider>
-          <App />
-        </SourseProvider>
-      </ImagesProvider>
+      <SignUpProvider>
+        <ImagesProvider>
+          <SourseProvider>
+            <App />
+          </SourseProvider>
+        </ImagesProvider>
+      </SignUpProvider>
     </Layout>
   </BrowserRouter>
 );

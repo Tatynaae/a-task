@@ -93,6 +93,9 @@
       line-height: 24px;
       background: var(--Purple, #5c5a79);
     }
+    .disabled {
+      cursor: not-allowed;
+    }
     &__remember {
       width: 100%;
       border: none;
