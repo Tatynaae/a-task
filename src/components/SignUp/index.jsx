@@ -81,6 +81,9 @@ const SignUp = ({ close }) => {
               onClick={Login}
               disabled={!ableLogin}
               className={!ableLogin && "disabled"}
+              style={{
+                backgroundColor: !ableLogin ? "#92919B" : "#2C6DA3",
+              }}
             >
               Sign in
             </button>

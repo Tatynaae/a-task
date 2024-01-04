@@ -15,11 +15,11 @@ import "./Audio.scss";
 const Audio = () => {
   const navigate = useNavigate();
   const { images, setImages } = useImages();
+  const [startRecord, setStartRecord] = useState(false);
   const { sourse } = useSourse();
   const [file, setFile] = useState(null);
   const [title, SetTitle] = useState("");
   const [overlay, setOverlay] = useState(false);
-
 
   const OnTitleChange = (e) => {
     SetTitle(e.target.value);
@@ -162,13 +162,15 @@ const Audio = () => {
                 ))}
               </div>
               <div className="record">
-                <VoiceRecorder able={able} />
+                <VoiceRecorder able={able} startRecord={startRecord} setStartRecord={setStartRecord}/>
               </div>
             </div>
           </div>
         </form>
         {!able && sourse.audio !== null ? (
-          <button className="next" onClick={() => navigate('/publish')}>Next question</button>
+          <button className="next" onClick={() => navigate("/publish")}>
+            Next question
+          </button>
         ) : (
           ""
         )}
