@@ -27,12 +27,6 @@ const VideoRecord = () => {
       <div className="video-content__right">
         <div className="video-media">
           {sourse.video ? (
-            //   <video
-            //     src="sourse.video"
-            //     controls
-            //     style={{ width: "100%", height: "100%" }}
-            //     autoPlay
-            //   />
             <ReactPlayer
               url={sourse.video}
               controls

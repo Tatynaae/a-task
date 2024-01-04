@@ -14,9 +14,10 @@ export const ImagesProvider = ({ children }) => {
     fourthImage: null,
     fifthImage: null,
   });
+  const [videoMedia, setVideoMedia] = useState(null);
 
   return (
-    <ImagesContext.Provider value={{ images, setImages }}>
+    <ImagesContext.Provider value={{ images, setImages, videoMedia, setVideoMedia }}>
       {children}
     </ImagesContext.Provider>
   );

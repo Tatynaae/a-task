@@ -5,6 +5,7 @@ import { ReactComponent as Question } from "../../assets/icons/question.svg";
 import { ReactComponent as Down } from "../../assets/icons/down-arrow.svg";
 import { ReactComponent as Up } from "../../assets/icons/up-arrow.svg";
 import { ReactComponent as Delete } from "../../assets/icons/x.svg";
+import { useImages } from "../../context/ImagesContext";
 import PreviewModal from "../../components/PreviewModal";
 import FirstQuestion from "./questions/FirstQuestion";
 import AppOverlay from "../../components/AppOverlay";
@@ -13,14 +14,14 @@ import VideoRecord from "./VideoRecord";
 import "./Video.scss";
 
 const Video = () => {
+  const { videoMedia, setVideoMedia } = useImages();
   const [selectedStyle, setSelectedStyle] = useState(false);
   const [question, setQuestion] = useState(false);
   const [overlay, setOverlay] = useState(false);
-  const [save, setSave] = useState(false);
 
   const [story, setStory] = useState({
     storyTitle: "",
-    storyImage: null,
+    storyVideo: videoMedia,
     storyStyle: "",
   });
 
@@ -38,23 +39,24 @@ const Video = () => {
   const Cencel = () => {
     setStory({
       ...story,
-      storyImage: null,
+      storyVideo: null,
     });
   };
   const handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setStory({
         ...story,
-        storyImage: URL.createObjectURL(e.target.files[0]),
+        storyVideo: URL.createObjectURL(e.target.files[0]),
       });
       OpenOverlay();
     } else setOverlay(false);
   };
 
   const DeleteImage = () => {
+    setVideoMedia(null);
     setStory({
       ...story,
-      storyImage: null,
+      storyVideo: null,
     });
   };
 
@@ -75,16 +77,16 @@ const Video = () => {
     setSelectedStyle(!selectedStyle);
   };
 
-  const SaveAndContinue = () => {
-    setSave(true);
-    setOverlay(false);
-  };
+  // const SaveAndContinue = () => {
+  //   setSave(true);
+  //   setOverlay(false);
+  // };
 
   const ThroughQuestions = () => {
     setQuestion(true);
   };
 
-  const able = story.storyImage && story.storyStyle && story.storyTitle;
+  const able = story.storyVideo && story.storyStyle && story.storyTitle;
   return (
     <>
       {question ? (
@@ -94,7 +96,7 @@ const Video = () => {
             <div className="video-content__left">
               <p>Preview</p>
               <div className="upload">
-                {story.storyImage === null ? (
+                {story.storyVideo === null ? (
                   <div className="upload__box">
                     <Upload />
                     <label htmlFor="upload">Upload preview</label>
@@ -102,11 +104,12 @@ const Video = () => {
                       id="upload"
                       hidden
                       onChange={handleImageChange}
+                      accept="video/mp4,video/x-m4v,video/*"
                     />
                   </div>
                 ) : (
                   <>
-                    <img src={story.storyImage} alt="" />
+                    <video controls src={story.storyVideo} className="video" />
                     <div className="delete" onClick={DeleteImage}>
                       <Delete />
                     </div>
@@ -127,7 +130,7 @@ const Video = () => {
             <div className="video-content__left">
               <p>Preview</p>
               <div className="upload">
-                {story.storyImage === null ? (
+                {story.storyVideo === null ? (
                   <div className="upload__box">
                     <Upload />
                     <label htmlFor="upload">Upload preview</label>
@@ -139,7 +142,8 @@ const Video = () => {
                   </div>
                 ) : (
                   <>
-                    <img src={story.storyImage} alt="" />
+                    {/* <img src={story.storyVideo} alt="" /> */}
+                    <video src={videoMedia} controls autoPlay />
                     <div className="delete" onClick={DeleteImage}>
                       <Delete />
                     </div>
@@ -188,16 +192,14 @@ const Video = () => {
           </button>
         </section>
       )}
-      {story.storyImage && overlay && (
+      {story.storyVideo && overlay && (
         <AppOverlay
           close={CloseOverlay}
           children={
             <PreviewModal
-              SaveFunc={SaveAndContinue}
-              image={story.storyImage}
+              video={story.storyVideo}
               close={CloseOverlay}
               cencel={Cencel}
-              save
             />
           }
         />
