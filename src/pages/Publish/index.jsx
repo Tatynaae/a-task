@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { ReactComponent as Question } from "../../assets/icons/question.svg";
 import { useImages } from "../../context/ImagesContext";
 import AppOverlay from "../../components/AppOverlay";
+import Button from "../../components/UI/Button";
 import SignUp from "../../components/SignUp";
 import Element from "./Element";
 import "./Publish.scss";
@@ -51,7 +52,7 @@ const Publish = () => {
                 <video controls src={videoMedia} className="video" />
               )}
               {location.pathname === "/publish-images" && (
-                <img src={viewImage} alt="" />
+                <img src={viewImage} alt="#" />
               )}
             </div>
           </div>
@@ -63,9 +64,9 @@ const Publish = () => {
             </div>
           </div>
         </div>
-        <button className="publish-btn" onClick={() => setOverlay(true)}>
-          Publish video
-        </button>
+        <div className="publish-btn">
+          <Button text={"Publish video"} onClick={() => setOverlay(true)} />
+        </div>
       </div>
       {overlay ? (
         <AppOverlay close={Close} children={<SignUp close={Close} />} />

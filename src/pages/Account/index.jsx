@@ -1,9 +1,9 @@
 import React from "react";
+import Button from "../../components/UI/Button";
+import image from "../../assets/images/preview-image.png";
 import { ReactComponent as Question } from "../../assets/icons/question.svg";
 import { ReactComponent as Share1 } from "../../assets/icons/share1.svg";
 import { ReactComponent as Share2 } from "../../assets/icons/share2.svg";
-import image from "../../assets/images/preview-image.png";
-
 import "./Account.scss";
 
 const Account = () => {
@@ -39,13 +39,15 @@ const Account = () => {
           <div className="share">
             <Share2 />
             <div className="share__text">
-              <h3>Share Your  Feedback </h3>
+              <h3>Share Your Feedback </h3>
               <p>Let us know your thoughts and get (promotion)</p>
             </div>
           </div>
         </div>
       </div>
-      <button className="order">Order high res</button>
+      <div className="order">
+        <Button text={"Order high res"} />
+      </div>
     </section>
   );
 };
