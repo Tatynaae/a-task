@@ -1,6 +1,5 @@
 .header {
   width: 100%;
-  border-radius: 12px 12px 0px 0px;
   border-bottom: 2px solid rgba(255, 255, 255, 0.1);
   background: rgba(29, 15, 39, 0.05);
   backdrop-filter: blur(10px);
@@ -14,7 +13,6 @@
 
     .logo {
       cursor: pointer;
-
       display: flex;
       align-items: center;
       gap: 12px;

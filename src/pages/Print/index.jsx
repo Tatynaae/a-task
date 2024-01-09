@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useImages } from "../../context/ImagesContext";
+import Completed from "./Completed";
 import Title from "../../components/UI/Title";
 import Button from "../../components/UI/Button";
 import FileInput from "../../components/FileInput";
@@ -18,7 +19,6 @@ import { ReactComponent as ThirdFrame } from "../../assets/icons/third-frame.svg
 import { ReactComponent as SecondFrame } from "../../assets/icons/second-frame.svg";
 
 import "./Print.scss";
-import Completed from "./Completed";
 
 const Print = () => {
   const { images, setImages } = useImages();
@@ -30,6 +30,12 @@ const Print = () => {
   const [activeFrame, setActiveFrame] = useState(null);
   const [completed, setCompoleted] = useState(false);
 
+  const OnImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(URL.createObjectURL(e.target.files[0]));
+      OpenOverlay();
+    } else setOverlay(false);
+  };
   const [story, setStory] = useState({
     StoryTitle: "",
     StoryText: "",
@@ -82,12 +88,6 @@ const Print = () => {
     // },
   ];
 
-  const OnImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(URL.createObjectURL(e.target.files[0]));
-      OpenOverlay();
-    } else setOverlay(false);
-  };
   const Cencel = () => {
     setOverlay(false);
     setFile(null);
@@ -122,11 +122,12 @@ const Print = () => {
     images.firstImage &&
     images.secondImage &&
     images.thirdImage &&
-    images.firstImage &&
+    images.fourthImage &&
     images.fifthImage;
 
   const DisplayStoryStyle = () => {
     able && setStoryStyle(true);
+    // setStoryStyle(true);
   };
 
   const Back = () => {
@@ -135,6 +136,7 @@ const Print = () => {
   };
   const NextToFrame = () => {
     story.StoryStyle && able && setFrame(true);
+    // setFrame(true)
   };
 
   const frames = [
@@ -164,10 +166,14 @@ const Print = () => {
 
   const NextToCompleted = () => {
     activeFrame && setCompoleted(true);
+    // setCompoleted(true)
+  };
+  const BackFromCompleted = () => {
+    setCompoleted(!completed);
   };
 
   if (completed) {
-    return <Completed story={story} />;
+    return <Completed story={story} BackFromCompleted={BackFromCompleted} />;
   }
   if (frame) {
     return (
@@ -188,7 +194,11 @@ const Print = () => {
             <Button text={"Back"} onClick={() => setFrame(false)} />
           </div>
           <div className="frame-content--btns__btn">
-            <Button text={"Next"} onClick={NextToCompleted} disabled={!activeFrame}/>
+            <Button
+              text={"Next"}
+              onClick={NextToCompleted}
+              disabled={!activeFrame}
+            />
           </div>
         </div>
       </div>
@@ -263,7 +273,7 @@ const Print = () => {
                         <img
                           src={el.image}
                           alt="#"
-                          style={{ objectFit: "contain" }}
+                          style={{ objectFit: "cover" }}
                         />
                         <div
                           className="remove"

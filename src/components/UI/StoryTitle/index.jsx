@@ -2,7 +2,7 @@ import React from "react";
 import { ReactComponent as Question } from "../../../assets/icons/question.svg";
 import "./StoryTitle.scss";
 
-const StoryTitle = ({ OnTitleChange, title, placeholder }) => {
+const StoryTitle = ({ OnTitleChange, title, placeholder, value }) => {
   return (
     <div className="story-title">
       <input
@@ -11,6 +11,7 @@ const StoryTitle = ({ OnTitleChange, title, placeholder }) => {
         placeholder={placeholder}
         onChange={(e) => OnTitleChange(e)}
         default={title}
+        value={value}
       />
       <Question />
     </div>
