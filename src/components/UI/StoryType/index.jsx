@@ -1,6 +1,6 @@
 import React from "react";
-import "./StoryType.scss";
 import clsx from "clsx";
+import "./StoryType.scss";
 
 const StoryType = ({
   story,

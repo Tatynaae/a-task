@@ -27,6 +27,7 @@
 
     &::placeholder {
       @include text;
+      opacity: 0.8;
     }
   }
 }

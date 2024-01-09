@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { ReactComponent as CloseIcon } from "../../assets/icons/close.svg";
 import { useImages } from "../../context/ImagesContext";
-import CropperVideo from "../Cropper/CropperVideo";
 import { CropperComponent } from "../Cropper";
+import { ReactComponent as CloseIcon } from "../../assets/icons/close.svg";
+import CropperVideo from "../Cropper/CropperVideo";
 import "./PreviewModal.scss";
 
 const PreviewModal = ({ image, video, close, cencel }) => {
@@ -18,60 +18,6 @@ const PreviewModal = ({ image, video, close, cencel }) => {
   const handleCropVideo = (croppedV) => {
     setCroppedVideo(croppedV);
   };
-
-  // const SaveAndContinue = () => {
-  //   if (image) {
-  //     if (images.firstImage === null) {
-  //       setImages({
-  //         ...images,
-  //         firstImage: croppedImageData,
-  //       });
-  //       close();
-  //     } else if (images.firstImage !== null && images.secondImage === null) {
-  //       setImages({
-  //         ...images,
-  //         secondImage: croppedImageData,
-  //       });
-  //       close();
-  //     } else if (
-  //       images.firstImage !== null &&
-  //       images.secondImage !== null &&
-  //       images.thirdImage === null
-  //     ) {
-  //       setImages({
-  //         ...images,
-  //         thirdImage: croppedImageData,
-  //       });
-  //       close();
-  //     } else if (
-  //       images.firstImage !== null &&
-  //       images.secondImage !== null &&
-  //       images.thirdImage !== null &&
-  //       images.fourthImage === null
-  //     ) {
-  //       setImages({
-  //         ...images,
-  //         fourthImage: croppedImageData,
-  //       });
-  //       close();
-  //     } else if (
-  //       images.firstImage !== null &&
-  //       images.secondImage !== null &&
-  //       images.thirdImage !== null &&
-  //       images.fourthImage !== null &&
-  //       images.fifthImage === null
-  //     ) {
-  //       setImages({
-  //         ...images,
-  //         fifthImage: croppedImageData,
-  //       });
-  //       close();
-  //     }
-  //   } else if (video) {
-  //     setVideoMedia(croppedVideo);
-  //     close();
-  //   }
-  // };
 
   const SaveAndContinue = () => {
     if (image) {

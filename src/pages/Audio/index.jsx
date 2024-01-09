@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as Question } from "../../assets/icons/question.svg";
 import { ReactComponent as Upload } from "../../assets/icons/Upload.svg";
 import { ReactComponent as Image } from "../../assets/icons/Image (Single).svg";
 import { ReactComponent as Record } from "../../assets/icons/record.svg";
@@ -10,6 +9,7 @@ import { useSourse } from "../../context/SourseContext";
 import VoiceRecorder from "../../components/VoiceRecorder";
 import PreviewModal from "../../components/PreviewModal";
 import AppOverlay from "../../components/AppOverlay";
+import StoryTitle from "../../components/UI/StoryTitle";
 import FileInput from "../../components/FileInput";
 import "./Audio.scss";
 
@@ -110,16 +110,10 @@ const Audio = () => {
       <section className="audio-container">
         <form className="question" onSubmit={handleSubmit}>
           <h2 className="question--title">Question 1</h2>
-          <div className="question--story-title">
-            <input
-              type="text"
-              className=""
-              placeholder="Pre filled text here for question #1"
-              onChange={(e) => OnTitleChange(e)}
-              value={title}
-            />
-            <Question />
-          </div>
+          <StoryTitle
+            placeholder={"Pre filled text here for question #1"}
+            OnTitleChange={OnTitleChange}
+          />
           <div className="question--story-create">
             <div className="question--story-create__left">
               {images.fifthImage === null ? (
