@@ -7,6 +7,7 @@ import Publish from "./pages/Publish";
 import Account from "./pages/Account";
 import Print from "./pages/Print";
 import Story from "./pages/Story";
+import PublishBookStory from "./pages/Publish/PublishBookStory";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
       <Route path="/publish-videos" element={<Publish />} />
       <Route path="/account" element={<Account />} />
       <Route path="/print" element={<Print />} />
-      <Route path="/story" element={<Story />} />
+      <Route path="/book-story" element={<Story />} />
+      <Route path="/publish-book_story" element={<PublishBookStory />} />
     </Routes>
   );
 }

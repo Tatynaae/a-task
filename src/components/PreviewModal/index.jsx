@@ -5,8 +5,8 @@ import { ReactComponent as CloseIcon } from "../../assets/icons/close.svg";
 import CropperVideo from "../Cropper/CropperVideo";
 import "./PreviewModal.scss";
 
-const PreviewModal = ({ image, video, close, cencel }) => {
-  const { images, setImages, videoMedia, setVideoMedia } = useImages();
+const PreviewModal = ({ image, video, close, cencel, save }) => {
+  const { images, setImages, setVideoMedia } = useImages();
 
   const [croppedImageData, setCroppedImageData] = useState(null);
   const [croppedVideo, setCroppedVideo] = useState(null);
@@ -21,9 +21,15 @@ const PreviewModal = ({ image, video, close, cencel }) => {
 
   const SaveAndContinue = () => {
     if (image) {
-      const imageKeys = ['firstImage', 'secondImage', 'thirdImage', 'fourthImage', 'fifthImage'];
+      const imageKeys = [
+        "firstImage",
+        "secondImage",
+        "thirdImage",
+        "fourthImage",
+        "fifthImage",
+      ];
       const nextImageIndex = imageKeys.findIndex((key) => images[key] === null);
-  
+
       if (nextImageIndex !== -1) {
         setImages({
           ...images,
@@ -36,8 +42,10 @@ const PreviewModal = ({ image, video, close, cencel }) => {
       close();
     }
   };
-  console.log("s1", croppedVideo);
-  console.log("s", videoMedia);
+
+  const Save = () => {
+    save(croppedImageData)
+  }
 
   return (
     <div className="preview">
@@ -63,7 +71,10 @@ const PreviewModal = ({ image, video, close, cencel }) => {
           <button className="btns--left" onClick={cencel}>
             Cancel
           </button>
-          <button className="btns--right" onClick={SaveAndContinue}>
+          <button
+            className="btns--right"
+            onClick={save ? Save : SaveAndContinue}
+          >
             Save & continue
           </button>
         </div>

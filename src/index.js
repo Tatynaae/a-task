@@ -8,6 +8,7 @@ import Layout from "./components/Layout";
 import App from "./App";
 import "./index.scss";
 import { SignUpProvider } from "./context/SingUpContext";
+import { BookStoryProvider } from "./context/BookStoryContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,7 +17,9 @@ root.render(
       <SignUpProvider>
         <ImagesProvider>
           <SourseProvider>
-            <App />
+            <BookStoryProvider>
+              <App />
+            </BookStoryProvider>
           </SourseProvider>
         </ImagesProvider>
       </SignUpProvider>

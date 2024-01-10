@@ -3,7 +3,7 @@ import { ReactComponent as Up } from "../../../assets/icons/up-arrow.svg";
 import { ReactComponent as Down } from "../../../assets/icons/down-arrow.svg";
 import "./Select.scss";
 
-const Select = ({ options }) => {
+const Select = ({ options, changeStyle }) => {
   const [selected, setSelected] = useState(false);
   const [select, setSelect] = useState(options[0]);
 
@@ -12,8 +12,13 @@ const Select = ({ options }) => {
   };
 
   const handleSetStyle = (option) => {
-    setSelect(option);
-    setSelected(!selected);
+    if (changeStyle) {
+      changeStyle(option);
+      setSelected(!selected);
+    } else {
+      setSelect(option);
+      setSelected(!selected);
+    }
   };
 
   return (

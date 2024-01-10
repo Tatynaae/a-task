@@ -49,7 +49,7 @@ const StoryTell = () => {
       icon: <BookType />,
       title: "Story book",
       description: "Document your {type} story in a beautiful printed book.",
-      relocate: "/book",
+      relocate: "/book-story",
     },
   ];
   return (

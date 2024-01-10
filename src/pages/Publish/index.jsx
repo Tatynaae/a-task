@@ -5,7 +5,7 @@ import { useImages } from "../../context/ImagesContext";
 import AppOverlay from "../../components/AppOverlay";
 import Button from "../../components/UI/Button";
 import SignUp from "../../components/SignUp";
-import Element from "./Element";
+import Element from "../../components/UI/Element";
 import "./Publish.scss";
 
 const Publish = () => {

@@ -46,11 +46,6 @@ const Audio = () => {
       icon: <Image />,
       image: images.fourthImage,
     },
-    // {
-    //   id: 5,
-    //   icon: <Image />,
-    //   image: images.fifthImage,
-    // },
   ];
   const OpenOverlay = () => {
     setOverlay(true);

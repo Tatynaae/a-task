@@ -16,6 +16,19 @@
   border: none;
 }
 
+.withoutBackgroundColor {
+  color: var(--Enactive, #f0dcd8);
+  font-family: Source Serif Pro;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  opacity: 0.65;
+  width: 420px;
+  background: transparent;
+  border: none;
+}
+
 .disabled {
   cursor: not-allowed;
 }

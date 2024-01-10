@@ -1,0 +1,100 @@
+.story-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 150px 0 80px 0;
+  gap: 40px;
+
+  .content {
+    border-radius: 6px;
+    border: 2px solid rgba(255, 255, 255, 0.12);
+    background: rgba(29, 15, 39, 0.4);
+    backdrop-filter: blur(16px);
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+
+    > p {
+      align-self: stretch;
+      color: var(--Enactive, #f0dcd8);
+      font-family: Inter;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%;
+    }
+  }
+  .story--content {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    &__left {
+      .uploaded {
+        display: flex;
+        width: 400px;
+        height: 300px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(48px);
+        overflow: hidden;
+        position: relative;
+
+        &--close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+        }
+
+        > img {
+          width: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+      .upload {
+        display: flex;
+        width: 400px;
+        height: 300px;
+        padding: 20px 24px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(48px);
+        overflow: hidden;
+
+        > label {
+          color: var(--Enactive, #f0dcd8);
+          font-feature-settings: "clig" off, "liga" off;
+          font-family: Inter;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 22px;
+          text-decoration-line: underline;
+          cursor: pointer;
+        }
+      }
+    }
+    &__right {
+      width: 100%;
+    }
+
+    &__btn {
+      margin: 40px 0 0 0;
+    }
+  }
+}

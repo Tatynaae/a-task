@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as Pencil } from "../../assets/icons/Pencil.svg";
+import { ReactComponent as Pencil } from "../../../assets/icons/Pencil.svg";
 import "./Element.scss";
 
-const Element = ({ el, id, ViewImage }) => {
+const Element = ({ el, id, ViewImage, path }) => {
   const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
 
   const Edit = () => {
-    navigate("/");
+    path ? navigate(path) : navigate("/");
   };
 
   return (
@@ -17,7 +17,7 @@ const Element = ({ el, id, ViewImage }) => {
       className="element"
       onMouseOver={() => setEdit(true)}
       onMouseLeave={() => setEdit(false)}
-      onClick={() => ViewImage(el)}
+      onClick={() => (ViewImage ? ViewImage(el) : "")}
     >
       <div className={edit ? "left-short" : "left"}>
         <img src={el} alt="img" />
