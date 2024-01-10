@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import { useImages } from "../../context/ImagesContext";
-import { CropperComponent } from "../Cropper";
+import { useVideoStory } from "../../context/VideoStoryContext";
 import { ReactComponent as CloseIcon } from "../../assets/icons/close.svg";
+import { CropperComponent } from "../Cropper";
 import CropperVideo from "../Cropper/CropperVideo";
 import "./PreviewModal.scss";
 
-const PreviewModal = ({ image, video, close, cencel, save }) => {
-  const { images, setImages, setVideoMedia } = useImages();
+const PreviewModal = ({
+  image,
+  video,
+  close,
+  cencel,
+  save,
+  savepreviewVideo,
+}) => {
+  const { images, setImages } = useImages();
+  const { setVideoStory, videoStory } = useVideoStory();
 
   const [croppedImageData, setCroppedImageData] = useState(null);
   const [croppedVideo, setCroppedVideo] = useState(null);
@@ -17,6 +26,10 @@ const PreviewModal = ({ image, video, close, cencel, save }) => {
 
   const handleCropVideo = (croppedV) => {
     setCroppedVideo(croppedV);
+  };
+
+  const SavepreviewVideo = () => {
+    setVideoStory({ ...videoStory, previewVideo: croppedVideo });
   };
 
   const SaveAndContinue = () => {
@@ -38,14 +51,14 @@ const PreviewModal = ({ image, video, close, cencel, save }) => {
         close();
       }
     } else if (video) {
-      setVideoMedia(croppedVideo);
+      SavepreviewVideo();
       close();
     }
   };
 
   const Save = () => {
-    save(croppedImageData)
-  }
+    save(croppedImageData);
+  };
 
   return (
     <div className="preview">

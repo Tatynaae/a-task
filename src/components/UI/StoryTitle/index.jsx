@@ -11,7 +11,7 @@ const StoryTitle = ({ OnTitleChange, title, placeholder, value }) => {
         className=""
         placeholder={placeholder}
         onChange={(e) => OnTitleChange(e)}
-        default={title}
+        value={title}
         defaultValue={value}
       />
       <Question />

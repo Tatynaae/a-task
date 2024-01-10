@@ -1,16 +1,17 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { ReactComponent as VideoMedia } from "../../../assets/icons/Line.svg";
+import ReactPlayer from "react-player/lazy";
+import Recording from "./Recording";
+import AppOverlay from "../../../components/AppOverlay";
+import { useVideoStory } from "../../../context/VideoStoryContext";
 import { ReactComponent as Record } from "../../../assets/icons/record.svg";
+import { ReactComponent as VideoMedia } from "../../../assets/icons/Line.svg";
 import { ReactComponent as Delete } from "../../../assets/icons/delete-recorded.svg";
 import { ReactComponent as Volume } from "../../../assets/icons/should-deleted.svg";
-import AppOverlay from "../../../components/AppOverlay";
-import Recording from "./Recording";
-import { useSourse } from "../../../context/SourseContext";
-import ReactPlayer from "react-player/lazy";
 
 const VideoRecord = () => {
-  const { sourse, setSourse } = useSourse();
   const [overlay, setOverlay] = useState(false);
+  const { videoStory, setVideoStory } = useVideoStory();
   const OpenOverlay = () => {
     setOverlay(true);
   };
@@ -18,21 +19,20 @@ const VideoRecord = () => {
     setOverlay(false);
   };
   const DeleteVideo = () => {
-    setSourse({ ...sourse, video: null });
+    setVideoStory({ ...videoStory, recordedVideo: null });
   };
 
-  const ableToRecord = sourse.video !== null;
+  const ableToRecord = videoStory.recordedVideo !== null;
   return (
     <>
       <div className="video-content__right">
         <div className="video-media">
-          {sourse.video ? (
+          {videoStory.recordedVideo ? (
             <ReactPlayer
-              url={sourse.video}
+              url={videoStory.recordedVideo}
               controls
               width={"100%"}
               height={"100%"}
-              
             />
           ) : (
             <>
@@ -41,11 +41,9 @@ const VideoRecord = () => {
             </>
           )}
         </div>
-        {sourse.video ? (
+        {videoStory.recordedVideo ? (
           <div className="done-media">
-            {/* can't do this player */}
             <Volume />
-
             <div className="delete-video" onClick={DeleteVideo}>
               <Delete />
             </div>

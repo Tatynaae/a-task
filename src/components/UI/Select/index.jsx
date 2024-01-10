@@ -5,7 +5,7 @@ import "./Select.scss";
 
 const Select = ({ options, changeStyle }) => {
   const [selected, setSelected] = useState(false);
-  const [select, setSelect] = useState(options[0]);
+  const [select, setSelect] = useState("Select a style for your story:");
 
   const handleChangeStyleSelect = () => {
     setSelected(!selected);
@@ -14,6 +14,7 @@ const Select = ({ options, changeStyle }) => {
   const handleSetStyle = (option) => {
     if (changeStyle) {
       changeStyle(option);
+      setSelect(option);
       setSelected(!selected);
     } else {
       setSelect(option);
@@ -27,7 +28,7 @@ const Select = ({ options, changeStyle }) => {
       onClick={handleChangeStyleSelect}
     >
       <label htmlFor="">
-        {select ? select : "Select a style for your story:"}
+        {select}
       </label>
       <div>{selected ? <Up /> : <Down />}</div>
       {selected && (

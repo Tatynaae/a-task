@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useBookStory } from "../../../context/BookStoryContext";
 import { ReactComponent as Image } from "../../../assets/icons/Image (Single).svg";
 import Button from "../../../components/UI/Button";
@@ -8,7 +9,7 @@ import "./PublishBookStory.scss";
 
 const PublishBookStory = () => {
   const { bookStory } = useBookStory();
-  
+  const navigate = useNavigate();
   return (
     <div className="publishBookStory">
       <div className="publishBookStory--content">
@@ -70,6 +71,7 @@ const PublishBookStory = () => {
       </div>
 
       <Button
+        onClick={() => navigate("/account")}
         text={"Publish Book"}
         style={{
           color: "#FBF8C8",

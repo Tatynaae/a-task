@@ -2,117 +2,90 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Upload } from "../../assets/icons/Upload.svg";
-import { ReactComponent as Question } from "../../assets/icons/question.svg";
-import { ReactComponent as Down } from "../../assets/icons/down-arrow.svg";
-import { ReactComponent as Up } from "../../assets/icons/up-arrow.svg";
 import { ReactComponent as Delete } from "../../assets/icons/x.svg";
-import { useImages } from "../../context/ImagesContext";
+import { useVideoStory } from "../../context/VideoStoryContext";
 import PreviewModal from "../../components/PreviewModal";
 import FirstQuestion from "./questions/FirstQuestion";
 import AppOverlay from "../../components/AppOverlay";
 import FileInput from "../../components/FileInput";
 import VideoRecord from "./VideoRecord";
+import Select from "../../components/UI/Select";
+import StoryTitle from "../../components/UI/StoryTitle";
 import "./Video.scss";
 
 const Video = () => {
-  const { videoMedia, setVideoMedia } = useImages();
-  const [selectedStyle, setSelectedStyle] = useState(false);
+  const { videoStory, setVideoStory } = useVideoStory();
   const [question, setQuestion] = useState(false);
   const [overlay, setOverlay] = useState(false);
-  const navigate = useNavigate()
-
-  const [story, setStory] = useState({
-    storyTitle: "",
-    storyVideo: videoMedia,
-    storyStyle: "",
-  });
+  const navigate = useNavigate();
 
   const styles = ["Style #1", "Style #2", "Style #3"];
+
   const OpenOverlay = () => {
     setOverlay(true);
   };
   const CloseOverlay = () => {
     setOverlay(false);
-    setStory({
-      ...story,
-      storyImage: null,
-    });
   };
   const Cencel = () => {
-    setStory({
-      ...story,
-      storyVideo: null,
-    });
+    setVideoStory({ ...videoStory, previewVideo: null });
+    CloseOverlay();
   };
-  const handleImageChange = (e) => {
+
+  const handleVideoChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      setStory({
-        ...story,
-        storyVideo: URL.createObjectURL(e.target.files[0]),
+      setVideoStory({
+        ...videoStory,
+        previewVideo: URL.createObjectURL(e.target.files[0]),
       });
       OpenOverlay();
     } else setOverlay(false);
   };
 
-  const DeleteImage = () => {
-    setVideoMedia(null);
-    setStory({
-      ...story,
-      storyVideo: null,
-    });
+  const DeleteVideo = () => {
+    setVideoStory({ ...videoStory, previewVideo: null });
   };
-
-  const SetStyle = (style) => {
-    setStory({
-      ...story,
-      storyStyle: style,
-    });
-  };
-  const SetTitle = (e) => {
-    setStory({
-      ...story,
-      storyTitle: e.target.value,
-    });
-  };
-
-  const handleChange = () => {
-    setSelectedStyle(!selectedStyle);
-  };
-
-  // const SaveAndContinue = () => {
-  //   setSave(true);
-  //   setOverlay(false);
-  // };
 
   const ThroughQuestions = () => {
-    setQuestion(true);
+    setQuestion((question) => true);
   };
 
-  const able = story.storyVideo && story.storyStyle && story.storyTitle;
+  const ChangeVideoStyle = (option) => {
+    setVideoStory({ ...videoStory, style: option });
+  };
+  const ChangeVideoTitle = (e) => {
+    setVideoStory({ ...videoStory, title: e.target.value });
+  };
+
+  const able = videoStory.previewVideo && videoStory.style && videoStory.title;
   return (
     <>
       {question ? (
         <section className="video-container">
-          <FirstQuestion OnTitleChange={SetStyle} title={story.storyTitle} />
+          <FirstQuestion title={videoStory.title} />
           <div className="video-content">
             <div className="video-content__left">
               <p>Preview</p>
               <div className="upload">
-                {story.storyVideo === null ? (
+                {videoStory.previewVideo === null ? (
                   <div className="upload__box">
                     <Upload />
                     <label htmlFor="upload">Upload preview</label>
                     <FileInput
                       id="upload"
                       hidden
-                      onChange={handleImageChange}
+                      onChange={handleVideoChange}
                       accept="video/mp4,video/x-m4v,video/*"
                     />
                   </div>
                 ) : (
                   <>
-                    <video controls src={videoMedia} className="video" />
-                    <div className="delete" onClick={DeleteImage}>
+                    <video
+                      controls
+                      src={videoStory.previewVideo}
+                      className="video"
+                    />
+                    <div className="delete" onClick={DeleteVideo}>
                       <Delete />
                     </div>
                   </>
@@ -121,7 +94,9 @@ const Video = () => {
             </div>
             <VideoRecord />
           </div>
-          <button className="next" onClick={() => navigate('/publish-videos')}>Next question</button>
+          <button className="next" onClick={() => navigate("/publish-videos")}>
+            Next question
+          </button>
           <button className="skip">Skip question</button>
         </section>
       ) : (
@@ -132,21 +107,20 @@ const Video = () => {
             <div className="video-content__left">
               <p>Preview</p>
               <div className="upload">
-                {story.storyVideo === null ? (
+                {videoStory.previewVideo === null ? (
                   <div className="upload__box">
                     <Upload />
                     <label htmlFor="upload">Upload preview</label>
                     <FileInput
                       id="upload"
                       hidden
-                      onChange={handleImageChange}
+                      onChange={handleVideoChange}
                     />
                   </div>
                 ) : (
                   <>
-                    {/* <img src={story.storyVideo} alt="" /> */}
-                    <video src={videoMedia} controls autoPlay />
-                    <div className="delete" onClick={DeleteImage}>
+                    <video src={videoStory.previewVideo} controls autoPlay />
+                    <div className="delete" onClick={DeleteVideo}>
                       <Delete />
                     </div>
                   </>
@@ -155,34 +129,11 @@ const Video = () => {
             </div>
             <div className="video-content__right">
               <p>Enter title and choose a style</p>
-              <div className="story-title">
-                <input
-                  type="text"
-                  onChange={(e) => SetTitle(e)}
-                  placeholder="My videobiography {type} story."
-                />
-                <Question />
-              </div>
-              <div
-                className={
-                  selectedStyle ? "storyStyleSelectOpened" : "storyStyleSelect"
-                }
-                onClick={handleChange}
-              >
-                <label htmlFor="storyStyle">
-                  {story.storyStyle
-                    ? story.storyStyle
-                    : "Select a style for your story:"}
-                </label>
-                <div>{selectedStyle ? <Up /> : <Down />}</div>
-                {selectedStyle && (
-                  <ul className="list">
-                    {styles.map((style) => (
-                      <li onClick={() => SetStyle(style)}>{style}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+              <StoryTitle
+                placeholder={"My videobiography {type} story."}
+                OnTitleChange={ChangeVideoTitle}
+              />
+              <Select options={styles} changeStyle={ChangeVideoStyle} />
             </div>
           </div>
           <button
@@ -194,12 +145,12 @@ const Video = () => {
           </button>
         </section>
       )}
-      {story.storyVideo && overlay && (
+      {videoStory.previewVideo && overlay && (
         <AppOverlay
           close={CloseOverlay}
           children={
             <PreviewModal
-              video={story.storyVideo}
+              video={videoStory.previewVideo}
               close={CloseOverlay}
               cencel={Cencel}
             />

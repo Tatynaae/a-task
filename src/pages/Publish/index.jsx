@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { ReactComponent as Question } from "../../assets/icons/question.svg";
+import { useVideoStory } from "../../context/VideoStoryContext";
 import { useImages } from "../../context/ImagesContext";
+import StoryTitle from "../../components/UI/StoryTitle";
 import AppOverlay from "../../components/AppOverlay";
 import Button from "../../components/UI/Button";
 import SignUp from "../../components/SignUp";
@@ -9,8 +10,8 @@ import Element from "../../components/UI/Element";
 import "./Publish.scss";
 
 const Publish = () => {
-  const { images, videoMedia } = useImages();
-  const [title, SetTitle] = useState("");
+  const { images } = useImages();
+  const { videoStory, setVideoStory } = useVideoStory();
   const [overlay, setOverlay] = useState(false);
   const AllImages = Object.values(images);
   const [viewImage, setViewImage] = useState(images.firstImage);
@@ -20,36 +21,31 @@ const Publish = () => {
     setOverlay(false);
   };
 
-  const OnTitleChange = (e) => {
-    SetTitle(e.target.value);
-  };
-
   const ViewImage = (image) => {
     setViewImage(image);
+  };
+
+  const ChangeTitle = (e) => {
+    setVideoStory({ ...videoStory, title: e.target.value });
   };
 
   return (
     <>
       <div className="publish-container">
-        <div className="story-title">
-          <p className="story-title__title">Story Title</p>
-          <div className="story-title__input">
-            <input
-              type="text"
-              className=""
-              placeholder="Pre filled text here for question #1"
-              onChange={(e) => OnTitleChange(e)}
-              value={title}
-            />
-            <Question />
-          </div>
+        <div className="publish-container__story-title">
+          <p className="publish-container__story-title__title">Story Title</p>
+          <StoryTitle value={videoStory.title} OnTitleChange={ChangeTitle} />
         </div>
         <div className="images">
           <div className="images-preview">
             <p className="images-preview__title">Preview</p>
             <div className="images-preview__image">
               {location.pathname === "/publish-videos" && (
-                <video controls src={videoMedia} className="video" />
+                <video
+                  controls
+                  src={videoStory.previewVideo}
+                  className="video"
+                />
               )}
               {location.pathname === "/publish-images" && (
                 <img src={viewImage} alt="#" />
@@ -59,7 +55,7 @@ const Publish = () => {
           <div className="images-list">
             <div className="elements">
               {AllImages.map((el, idx) => (
-                <Element el={el} id={idx} ViewImage={ViewImage} />
+                <Element el={el} id={idx} ViewImage={ViewImage} path="/video" />
               ))}
             </div>
           </div>

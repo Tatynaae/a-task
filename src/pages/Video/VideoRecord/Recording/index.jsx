@@ -3,12 +3,12 @@ import { useReactMediaRecorder } from "react-media-recorder";
 import { ReactComponent as Close } from "../../../../assets/icons/x.svg";
 import { ReactComponent as Warning } from "../../../../assets/icons/Warning.svg";
 import { ReactComponent as Upload } from "../../../../assets/icons/Layer.svg";
-import "./Recording.scss";
-import { useSourse } from "../../../../context/SourseContext";
+import { useVideoStory } from "../../../../context/VideoStoryContext";
 import FileInput from "../../../../components/FileInput";
+import "./Recording.scss";
 
 const Recording = ({ CloseModal }) => {
-  const { sourse, setSourse } = useSourse();
+  const { videoStory, setVideoStory } = useVideoStory();
   const [startRecord, setStartRecord] = useState(false);
   const { status, startRecording, stopRecording, mediaBlobUrl, previewStream } =
     useReactMediaRecorder({ video: true });
@@ -32,7 +32,7 @@ const Recording = ({ CloseModal }) => {
   };
 
   const handleDoneRecording = () => {
-    setSourse({ ...sourse, video: mediaBlobUrl });
+    setVideoStory({ ...videoStory, recordedVideo: mediaBlobUrl });
     CloseModal();
   };
 
@@ -63,7 +63,7 @@ const Recording = ({ CloseModal }) => {
 
   const SetUploadVideo = (event) => {
     const file = URL.createObjectURL(event.target.files[0]);
-    setSourse({ ...sourse, video: file });
+    setVideoStory({ ...videoStory, recordedVideo: file });
     CloseModal();
   };
 
