@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as Pencil } from "../../../assets/icons/Pencil.svg";
 import "./Element.scss";
 
-const Element = ({ el, id, ViewImage, path }) => {
+const Element = ({ el, id, path }) => {
   const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
 
@@ -17,7 +17,6 @@ const Element = ({ el, id, ViewImage, path }) => {
       className="element"
       onMouseOver={() => setEdit(true)}
       onMouseLeave={() => setEdit(false)}
-      onClick={() => (ViewImage ? ViewImage(el) : "")}
     >
       <div className={edit ? "left-short" : "left"}>
         <img src={el} alt="img" />

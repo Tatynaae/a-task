@@ -99,6 +99,8 @@ const Audio = () => {
     setStartRecord(true);
   };
 
+  
+
   return (
     <>
       <section className="audio-container">

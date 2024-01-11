@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Close } from "../../assets/icons/close.svg";
 import { useSignUp } from "../../context/SingUpContext";
@@ -18,9 +18,26 @@ const SignUp = ({ close, path }) => {
     signup.password.length > 0;
   let ableLogin = login.email.length > 0 && login.password.length > 0;
 
+  useEffect(() => {
+    const savedSignup = localStorage.getItem("signup");
+    const savedLogin = localStorage.getItem("login");
+
+    if (savedSignup) {
+      setSignup(JSON.parse(savedSignup));
+    }
+
+    if (savedLogin) {
+      setLogin(JSON.parse(savedLogin));
+    }
+  }, [setSignup, setLogin]);
+
+  const saveToLocalStorage = () => {
+    localStorage.setItem("signup", JSON.stringify(signup));
+    localStorage.setItem("login", JSON.stringify(login));
+  };
   const handleSingUpChange = (e) => {
     const { name, value } = e.target;
-    setSignup({ ...signup, [name]: [value] });
+    setSignup({ ...signup, [name]: value });
   };
 
   const handleLoginChange = (e) => {
@@ -33,9 +50,11 @@ const SignUp = ({ close, path }) => {
   };
   const SignUp = () => {
     ableSingup && Relocate();
+    ableSingup && saveToLocalStorage();
   };
   const Login = () => {
     ableLogin && Relocate();
+    ableLogin && saveToLocalStorage();
   };
 
   return (

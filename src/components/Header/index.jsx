@@ -1,22 +1,55 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useSignUp } from "../../context/SingUpContext";
+import { useNavigate } from "react-router-dom";
 import { ReactComponent as Profile } from "../../assets/icons/Profile.svg";
-import Logo from "../../assets/images/logo.svg";
 import AppOverlay from "../AppOverlay";
+import Logo from "../../assets/images/logo.svg";
 import "./Header.scss";
 
 const Header = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { signup, login, setSignup, setLogin } = useSignUp();
   const [overlay, setOverlay] = useState(false);
+
+  useEffect(() => {
+    const savedSignup = localStorage.getItem("signup");
+    const savedLogin = localStorage.getItem("login");
+
+    if (savedSignup) {
+      setSignup(JSON.parse(savedSignup));
+    }
+
+    if (savedLogin) {
+      setLogin(JSON.parse(savedLogin));
+    }
+  }, [setSignup, setLogin]);
+
+  const saveToLocalStorage = () => {
+    localStorage.setItem("signup", JSON.stringify(signup));
+    localStorage.setItem("login", JSON.stringify(login));
+  };
+
   const OpenOverlay = () => {
     setOverlay(true);
   };
+
   const CloseOverlay = () => {
     setOverlay(false);
   };
 
-  console.log(location.pathname);
+  const savedSignup = localStorage.getItem("signup");
+  const savedLogin = localStorage.getItem("login");
+
+  const logined =
+    (savedSignup &&
+      Object.values(JSON.parse(savedSignup))
+        .map((el) => el !== "")
+        .includes(true)) ||
+    (savedLogin &&
+      Object.values(JSON.parse(savedLogin))
+        .map((el) => el !== "")
+        .includes(true));
+
   return (
     <>
       <header className="header">
@@ -25,11 +58,21 @@ const Header = () => {
             <img src={Logo} alt="logo" />
             <span className="logo-title">StoryFairy</span>
           </div>
-          {location.pathname === "/publish-images" ||
-          location.pathname === "/publish-videos" ? (
-            <Profile />
+          {logined ? (
+            <div
+              onClick={() => navigate("/account")}
+              style={{ cursor: "pointer" }}
+            >
+              <Profile />
+            </div>
           ) : (
-            <button className="save" onClick={OpenOverlay}>
+            <button
+              className="save"
+              onClick={() => {
+                OpenOverlay();
+                saveToLocalStorage();
+              }}
+            >
               Save Your Story
             </button>
           )}
