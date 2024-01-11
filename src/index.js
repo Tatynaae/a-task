@@ -2,29 +2,29 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { ImagesProvider } from "./context/ImagesContext";
-import { SourseProvider } from "./context/SourseContext";
 import { SignUpProvider } from "./context/SingUpContext";
 import { BookStoryProvider } from "./context/BookStoryContext";
+import { VideoStoryProvider } from "./context/VideoStoryContext";
+import { AudioStoryProvider } from "./context/AudioStoryContext";
+import { PrintStoryProvider } from "./context/PrintStoryContext";
 import Layout from "./components/Layout";
 import App from "./App";
 import "./index.scss";
-import { VideoStoryProvider } from "./context/VideoStoryContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Layout>
       <SignUpProvider>
-        <ImagesProvider>
-          <SourseProvider>
-            <BookStoryProvider>
-              <VideoStoryProvider>
-                <App />
-              </VideoStoryProvider>
-            </BookStoryProvider>
-          </SourseProvider>
-        </ImagesProvider>
+          <BookStoryProvider>
+            <VideoStoryProvider>
+              <AudioStoryProvider>
+                <PrintStoryProvider>
+                  <App />
+                </PrintStoryProvider>
+              </AudioStoryProvider>
+            </VideoStoryProvider>
+          </BookStoryProvider>
       </SignUpProvider>
     </Layout>
   </BrowserRouter>

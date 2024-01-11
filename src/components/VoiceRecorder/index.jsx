@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ReactMic } from "react-mic";
-import { useSourse } from "../../context/SourseContext";
+import { useAudioStory } from "../../context/AudioStoryContext";
 import { ReactComponent as Save } from "../../assets/icons/check.svg";
 import { ReactComponent as Delete } from "../../assets/icons/delete.svg";
 import { ReactComponent as StartIcon } from "../../assets/icons/pause.svg";
@@ -10,20 +10,20 @@ import "./VoiceRecorder.scss";
 const VoiceRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordedBlob, setRecordedBlob] = useState(null);
-  const { sourse, setSourse } = useSourse();
+  const { audioStory, setAudioStory } = useAudioStory();
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
   const onDelete = () => {
     setRecordedBlob(null);
-    setSourse({ ...sourse, audio: null });
+    setAudioStory({ ...audioStory, audio: null });
     setMinutes(0);
     setSeconds(0);
   };
 
   const onSave = () => {
     setIsRecording(false);
-    setSourse({ ...sourse, audio: recordedBlob.blobURL });
+    setAudioStory({ ...audioStory, audio: recordedBlob.blobURL });
   };
 
   useEffect(() => {
@@ -61,19 +61,21 @@ const VoiceRecorder = () => {
   return (
     <div
       className={
-        sourse.audio === null ? "voice--content" : "saved-voice--content"
+        audioStory.audio === null ? "voice--content" : "saved-voice--content"
       }
     >
       <>
-        {sourse.audio ? (
+        {audioStory.audio ? (
           <audio controls className="audio">
-            <source src={sourse.audio} />
+            <source src={audioStory.audio} />
             Your browser does not support the audio element.
           </audio>
         ) : (
           <div
             className={
-              sourse.audio === null ? "voice--content__record" : "none-record"
+              audioStory.audio === null
+                ? "voice--content__record"
+                : "none-record"
             }
           >
             <p>{`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}</p>
@@ -88,7 +90,7 @@ const VoiceRecorder = () => {
           </div>
         )}
 
-        <div className="btns">
+        <div className="buttons">
           <button
             onClick={onDelete}
             disabled={!recordedBlob}
@@ -98,7 +100,7 @@ const VoiceRecorder = () => {
           >
             <Delete />
           </button>
-          {sourse.audio === null && (
+          {audioStory.audio === null && (
             <button
               onClick={() =>
                 setIsRecording((prevIsRecording) => !prevIsRecording)
@@ -107,7 +109,7 @@ const VoiceRecorder = () => {
               <StartIcon />
             </button>
           )}
-          {sourse.audio === null && (
+          {audioStory.audio === null && (
             <button onClick={onSave} disabled={!recordedBlob}>
               <Save />
             </button>

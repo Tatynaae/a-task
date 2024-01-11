@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useImages } from "../../context/ImagesContext";
+import { usePrintStory } from "../../context/PrintStoryContext";
 import Completed from "./Completed";
 import Title from "../../components/UI/Title";
 import Button from "../../components/UI/Button";
@@ -21,7 +21,7 @@ import { ReactComponent as SecondFrame } from "../../assets/icons/second-frame.s
 import "./Print.scss";
 
 const Print = () => {
-  const { images, setImages } = useImages();
+  const { printStory, setPrintStory } = usePrintStory();
   const [overlay, setOverlay] = useState(false);
   const [file, setFile] = useState(null);
   const [storyStyle, setStoryStyle] = useState(false);
@@ -29,63 +29,46 @@ const Print = () => {
   const [frame, setFrame] = useState(false);
   const [activeFrame, setActiveFrame] = useState(null);
   const [completed, setCompoleted] = useState(false);
-
-  const OnImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(URL.createObjectURL(e.target.files[0]));
-      OpenOverlay();
-    } else setOverlay(false);
-  };
-  const [story, setStory] = useState({
-    StoryTitle: "",
-    StoryText: "",
-    StoryStyle: "",
-    StoryImages: {
-      storyFirstImage: images.firstImage,
-      storySecondImage: images.secondImage,
-      storyThirdImage: images.thirdImage,
-      storyFourthImage: images.fourthImage,
-      storyFifthImage: images.fifthImage,
-    },
-  });
   const styles = ["Style #1", "Style #2", "Style #3"];
+
   const OpenOverlay = () => {
     setOverlay(true);
   };
   const CloseOverlay = () => {
     setOverlay(false);
   };
+  const OnImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(URL.createObjectURL(e.target.files[0]));
+      OpenOverlay();
+    } else setOverlay(false);
+  };
 
   const onStoryTitleChnage = (e) => {
-    setStory({ ...story, StoryTitle: e.target.value });
+    setPrintStory({ ...printStory, title: e.target.value });
   };
 
   const photos = [
     {
       id: 1,
       icon: <Image />,
-      image: images.firstImage,
+      image: printStory.images[0],
     },
     {
       id: 2,
       icon: <Image />,
-      image: images.secondImage,
+      image: printStory.images[1],
     },
     {
       id: 3,
       icon: <Image />,
-      image: images.thirdImage,
+      image: printStory.images[2],
     },
     {
       id: 4,
       icon: <Image />,
-      image: images.fourthImage,
+      image: printStory.images[3],
     },
-    // {
-    //   id: 5,
-    //   icon: <Image />,
-    //   image: images.fifthImage,
-    // },
   ];
 
   const Cencel = () => {
@@ -93,50 +76,26 @@ const Print = () => {
     setFile(null);
   };
 
-  const RemoveImage = (id) => {
-    if (id === 1) {
-      setImages({ ...images, firstImage: null });
-    } else if (id === 2) {
-      setImages({ ...images, secondImage: null });
-    } else if (id === 3) {
-      setImages({ ...images, thirdImage: null });
-    } else if (id === 4) {
-      setImages({ ...images, fourthImage: null });
-    } else if (id === 5) {
-      setImages({ ...images, fifthImage: null });
-    }
-  };
-
   const SetStyle = (el) => {
     setSelectedStyle(true);
-    setStory({ ...story, StoryStyle: el });
+    setPrintStory({ ...printStory, style: el });
   };
 
   const handleChangeStyleSelect = () => {
     setSelectedStyle(!selectedStyle);
   };
 
-  const able =
-    story.StoryText &&
-    story.StoryTitle &&
-    images.firstImage &&
-    images.secondImage &&
-    images.thirdImage &&
-    images.fourthImage &&
-    images.fifthImage;
-
   const DisplayStoryStyle = () => {
     able && setStoryStyle(true);
-    // setStoryStyle(true);
   };
+  const able = printStory.title && printStory.images[0] && printStory.text; //nado zakonchit'
 
   const Back = () => {
-    setStory({ ...story, StoryStyle: "" });
+    setPrintStory({ ...printStory, style: "" });
     setStoryStyle(false);
   };
   const NextToFrame = () => {
-    story.StoryStyle && able && setFrame(true);
-    // setFrame(true)
+    printStory.style && able && setFrame(true);
   };
 
   const frames = [
@@ -166,14 +125,29 @@ const Print = () => {
 
   const NextToCompleted = () => {
     activeFrame && setCompoleted(true);
-    // setCompoleted(true)
   };
   const BackFromCompleted = () => {
     setCompoleted(!completed);
   };
 
+  const SaveImage = (croppedImage) => {
+    const updatedBook = { ...printStory };
+    const nullIndex = updatedBook.images.findIndex((image) => image === null);
+
+    if (nullIndex !== -1) {
+      updatedBook.images[nullIndex] = croppedImage;
+
+      setPrintStory(updatedBook);
+      setFile(null);
+    } else {
+      console.error("No more slots available for images");
+    }
+  };
+
   if (completed) {
-    return <Completed story={story} BackFromCompleted={BackFromCompleted} />;
+    return (
+      <Completed story={printStory} BackFromCompleted={BackFromCompleted} />
+    );
   }
   if (frame) {
     return (
@@ -211,20 +185,20 @@ const Print = () => {
 
         <div className="print--block">
           <StoryTitle
-            title={story.title}
+            title={printStory.title}
             OnTitleChange={onStoryTitleChnage}
             placeholder={"My printed type story"}
           />
           {storyStyle && (
             <div
               className={
-                story.StoryStyle ? "storyStyleSelectOpened" : "storyStyleSelect"
+                printStory.style ? "storyStyleSelectOpened" : "storyStyleSelect"
               }
               onClick={handleChangeStyleSelect}
             >
               <label htmlFor="storyStyle">
-                {story.StoryStyle
-                  ? story.StoryStyle
+                {printStory.style
+                  ? printStory.style
                   : "Select a style for your story:"}
               </label>
               <div>{selectedStyle ? <Up /> : <Down />}</div>
@@ -240,7 +214,7 @@ const Print = () => {
           <div className="print--block__bottom">
             <div className="print--block__bottom__left">
               <div className="left">
-                {images.fifthImage === null ? (
+                {printStory.images[4] === null ? (
                   <>
                     <p>0/5</p>
                     <div className="left--upload">
@@ -252,13 +226,18 @@ const Print = () => {
                 ) : (
                   <div className="image">
                     <img
-                      src={images.fifthImage}
+                      src={printStory.images[4]}
                       alt="#"
                       onClick={() => setOverlay(true)}
                     />
                     <div
                       className="remove"
-                      onClick={() => setImages({ ...images, fifthImage: null })}
+                      // onClick={() =>
+                      //   setPrintStory({
+                      //     ...printStory,
+                      //     images: images[0].replace(null),
+                      //   })
+                      // }
                     >
                       <X />
                     </div>
@@ -277,7 +256,7 @@ const Print = () => {
                         />
                         <div
                           className="remove"
-                          onClick={() => RemoveImage(el.id)}
+                          // onClick={() => RemoveImage(el.id)}
                         >
                           <X />
                         </div>
@@ -293,7 +272,7 @@ const Print = () => {
                 className="text-area"
                 placeholder="Tell your story"
                 onChange={(e) =>
-                  setStory({ ...story, StoryText: e.target.value })
+                  setPrintStory({ ...printStory, text: e.target.value })
                 }
               ></textarea>
               <Question />
@@ -311,7 +290,7 @@ const Print = () => {
             <div className="print--btns__btn">
               <Button
                 text={"Next"}
-                disabled={!story.StoryStyle}
+                disabled={!printStory.style}
                 onClick={NextToFrame}
               />
             </div>
@@ -323,7 +302,12 @@ const Print = () => {
         <AppOverlay
           close={CloseOverlay}
           children={
-            <PreviewModal image={file} close={CloseOverlay} cencel={Cencel} />
+            <PreviewModal
+              image={file}
+              close={CloseOverlay}
+              cencel={Cencel}
+              save={SaveImage}
+            />
           }
         />
       )}

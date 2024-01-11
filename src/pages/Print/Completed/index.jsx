@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { useImages } from "../../../context/ImagesContext";
 import { ReactComponent as Frame } from "../../../assets/icons/frame-1.svg";
-import Button from '../../../components/UI/Button';
+import Button from "../../../components/UI/Button";
 import Select from "../../../components/UI/Select";
 import StoryTitle from "../../../components/UI/StoryTitle";
 import "./Completed.scss";
 
 const Completed = ({ story, BackFromCompleted }) => {
-  const { images } = useImages();
   const [quantity, setQuantity] = useState(1);
   const SizeOptions = ["Size: 11*12", "Size: 11*13", "Size: 11*14"];
   const MountOptions = ["Wall mount", "Wall mount 1", "Wall mount 2"];
@@ -18,16 +16,16 @@ const Completed = ({ story, BackFromCompleted }) => {
   ];
 
   const incrementQuantity = () => {
-    setQuantity((quantity) => quantity+=1);
+    setQuantity((quantity) => (quantity += 1));
   };
   const decrementQuantity = () => {
-    quantity > 1 ? setQuantity((quantity) => quantity-=1) : setQuantity(1);
+    quantity > 1 ? setQuantity((quantity) => (quantity -= 1)) : setQuantity(1);
   };
   return (
     <div className="completed-content">
       <div className="completed-content__title">
         <p>Story Title</p>
-        <StoryTitle value={story.StoryTitle} />
+        <StoryTitle value={story.title} />
       </div>
       <div className="completed-content__block">
         <div className="framed-content">
@@ -46,25 +44,25 @@ const Completed = ({ story, BackFromCompleted }) => {
 
           <div className="left">
             <div className="left--first">
-              <img src={images.firstImage} alt="" />
+              <img src={story.images[0]} alt="" />
             </div>
             <div className="left--second">
               <div className="left--second__box">
-                <img src={images.secondImage} alt="" />
+                <img src={story.images[1]} alt="" />
               </div>
               <div className="left--second__box">
-                <img src={images.thirdImage} alt="" />
+                <img src={story.images[2]} alt="" />
               </div>
               <div className="left--second__box">
-                <img src={images.fourthImage} alt="" />
+                <img src={story.images[3]} alt="" />
               </div>
               <div className="left--second__box">
-                <img src={images.fifthImage} alt="" />
+                <img src={story.images[5]} alt="" />
               </div>
             </div>
           </div>
           <div className="right">
-            <p>{story.StoryText}</p>
+            <p>{story.text}</p>
           </div>
         </div>
       </div>
@@ -89,8 +87,8 @@ const Completed = ({ story, BackFromCompleted }) => {
         </div>
       </div>
       <div className="completed-content--btns">
-        <Button text={'Back'} onClick={BackFromCompleted}/>
-        <Button text={'Add To Cart'} style={{color: '#FBF8C8'}}/>
+        <Button text={"Back"} onClick={BackFromCompleted} />
+        <Button text={"Add To Cart"} style={{ color: "#FBF8C8" }} />
       </div>
     </div>
   );

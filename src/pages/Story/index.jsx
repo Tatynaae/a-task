@@ -7,9 +7,9 @@ import AppOverlay from "../../components/AppOverlay";
 import StoryTitle from "../../components/UI/StoryTitle";
 import PreviewModal from "../../components/PreviewModal";
 import UploadLarge from "../../components/UI/UploadLarge";
+import { useBookStory } from "../../context/BookStoryContext";
 
 import "./Story.scss";
-import { useBookStory } from "../../context/BookStoryContext";
 
 const Story = () => {
   const options = ["Style #1", "Style #2", "Style #3"];
@@ -17,13 +17,6 @@ const Story = () => {
   const [nextSection, setNextSection] = useState(false);
   const [previewFile, setPreviewFile] = useState(null);
   const { bookStory, setBookStory } = useBookStory();
-  // const [bookStory, setBookStory] = useState({
-  //   title: "",
-  //   style: "",
-  //   preview: null,
-  //   images: new Array(5).fill(null),
-  //   text: "",
-  // });
 
   const OpenOverlay = () => {
     setOverlay(true);

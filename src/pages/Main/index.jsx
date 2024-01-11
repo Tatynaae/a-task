@@ -15,7 +15,7 @@ const Main = () => {
   const handleSetActiveStory = (storyId) => {
     setActiveStory(storyId);
   };
-  const Stories = [
+  const stories = [
     {
       id: 1,
       title: "Life story",
@@ -48,7 +48,7 @@ const Main = () => {
     <div className="hero">
       <Title text={"What story do you have?"} />
       <div className="hero--stories">
-        {Stories.map((story) => (
+        {stories.map((story) => (
           <StoryType
             variant="default"
             story={story}

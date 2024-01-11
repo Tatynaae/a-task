@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useImages } from "../../context/ImagesContext";
 import { useVideoStory } from "../../context/VideoStoryContext";
 import { ReactComponent as CloseIcon } from "../../assets/icons/close.svg";
 import { CropperComponent } from "../Cropper";
@@ -14,7 +13,6 @@ const PreviewModal = ({
   save,
   savepreviewVideo,
 }) => {
-  const { images, setImages } = useImages();
   const { setVideoStory, videoStory } = useVideoStory();
 
   const [croppedImageData, setCroppedImageData] = useState(null);
@@ -34,31 +32,14 @@ const PreviewModal = ({
 
   const SaveAndContinue = () => {
     if (image) {
-      const imageKeys = [
-        "firstImage",
-        "secondImage",
-        "thirdImage",
-        "fourthImage",
-        "fifthImage",
-      ];
-      const nextImageIndex = imageKeys.findIndex((key) => images[key] === null);
-
-      if (nextImageIndex !== -1) {
-        setImages({
-          ...images,
-          [imageKeys[nextImageIndex]]: croppedImageData,
-        });
-        close();
-      }
+      save(croppedImageData);
+      close();
     } else if (video) {
       SavepreviewVideo();
       close();
     }
   };
 
-  const Save = () => {
-    save(croppedImageData);
-  };
 
   return (
     <div className="preview">
@@ -86,7 +67,7 @@ const PreviewModal = ({
           </button>
           <button
             className="btns--right"
-            onClick={save ? Save : SaveAndContinue}
+            onClick={SaveAndContinue}
           >
             Save & continue
           </button>
