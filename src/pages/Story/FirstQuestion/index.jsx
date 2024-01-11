@@ -33,6 +33,16 @@ const FirstQuestion = ({ setBookStory, bookStory, able }) => {
     } else setOverlay(false);
   };
 
+  const removeImage = (index) => {
+    const updatedImages = [...bookStory.images];
+    updatedImages[index] = null;
+
+    setBookStory({
+      ...bookStory,
+      images: updatedImages,
+    });
+  };
+
   const CencelPreviewModal = () => {
     setOverlay(false);
     setImageFile(null);
@@ -71,7 +81,7 @@ const FirstQuestion = ({ setBookStory, bookStory, able }) => {
               <UploadLarge
                 image={imageFile || bookStory.images[4]}
                 ChangeImage={handleChangeImage}
-                // RemoveImage={RemoveImage(0)}
+                RemoveImage={removeImage(0)}
               />
             </div>
             <div className="images-block__right">
@@ -79,7 +89,7 @@ const FirstQuestion = ({ setBookStory, bookStory, able }) => {
                 {bookStory.images[0] ? (
                   <>
                     <img src={bookStory.images[0]} alt="" />
-                    <div className="remove">
+                    <div className="remove" onClick={() => removeImage(0)}>
                       <X />
                     </div>
                   </>
@@ -91,7 +101,7 @@ const FirstQuestion = ({ setBookStory, bookStory, able }) => {
                 {bookStory.images[1] ? (
                   <>
                     <img src={bookStory.images[1]} alt="" />
-                    <div className="remove">
+                    <div className="remove" onClick={() => removeImage(1)}>
                       <X />
                     </div>
                   </>
@@ -103,7 +113,7 @@ const FirstQuestion = ({ setBookStory, bookStory, able }) => {
                 {bookStory.images[2] ? (
                   <>
                     <img src={bookStory.images[2]} alt="" />
-                    <div className="remove">
+                    <div className="remove" onClick={() => removeImage(2)}>
                       <X />
                     </div>
                   </>
@@ -115,7 +125,7 @@ const FirstQuestion = ({ setBookStory, bookStory, able }) => {
                 {bookStory.images[3] ? (
                   <>
                     <img src={bookStory.images[3]} alt="" />
-                    <div className="remove">
+                    <div className="remove" onClick={() => removeImage(3)}>
                       <X />
                     </div>
                   </>
@@ -127,7 +137,11 @@ const FirstQuestion = ({ setBookStory, bookStory, able }) => {
           </div>
         </div>
         <div className="btns">
-          <Button text={"Next question"} onClick={PublishStory} disabled={!able}/>
+          <Button
+            text={"Next question"}
+            onClick={PublishStory}
+            disabled={!able}
+          />
           <Button text={"Skip question"} variant="withoutBackgroundColor" />
         </div>
       </div>

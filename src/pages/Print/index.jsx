@@ -44,28 +44,38 @@ const Print = () => {
     } else setOverlay(false);
   };
 
+  const removeImage = (index) => {
+    const updatedImages = [...printStory.images];
+    updatedImages[index] = null;
+
+    setPrintStory({
+      ...printStory,
+      images: updatedImages,
+    });
+  };
+
   const onStoryTitleChnage = (e) => {
     setPrintStory({ ...printStory, title: e.target.value });
   };
 
   const photos = [
     {
-      id: 1,
+      id: 0,
       icon: <Image />,
       image: printStory.images[0],
     },
     {
-      id: 2,
+      id: 1,
       icon: <Image />,
       image: printStory.images[1],
     },
     {
-      id: 3,
+      id: 2,
       icon: <Image />,
       image: printStory.images[2],
     },
     {
-      id: 4,
+      id: 3,
       icon: <Image />,
       image: printStory.images[3],
     },
@@ -230,15 +240,7 @@ const Print = () => {
                       alt="#"
                       onClick={() => setOverlay(true)}
                     />
-                    <div
-                      className="remove"
-                      // onClick={() =>
-                      //   setPrintStory({
-                      //     ...printStory,
-                      //     images: images[0].replace(null),
-                      //   })
-                      // }
-                    >
+                    <div className="remove" onClick={() => removeImage(4)}>
                       <X />
                     </div>
                   </div>
@@ -247,7 +249,7 @@ const Print = () => {
               <div className="right">
                 {photos.map((el) => (
                   <div className="right--box" key={el.id}>
-                    {el.id !== 5 && el.image !== null && (
+                    {el.id !== 4 && el.image !== null && (
                       <div className="image">
                         <img
                           src={el.image}
@@ -256,7 +258,7 @@ const Print = () => {
                         />
                         <div
                           className="remove"
-                          // onClick={() => RemoveImage(el.id)}
+                          onClick={() => removeImage(el.id)}
                         >
                           <X />
                         </div>

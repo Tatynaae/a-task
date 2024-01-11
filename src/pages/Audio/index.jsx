@@ -63,7 +63,6 @@ const Audio = () => {
     const updatedImages = [...audioStory.images];
     updatedImages[index] = null;
 
-    // Update the state with the new images array
     setAudioStory({
       ...audioStory,
       images: updatedImages,
