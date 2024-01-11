@@ -7,7 +7,7 @@ import Publish from "./pages/Publish";
 import Account from "./pages/Account";
 import Print from "./pages/Print";
 import Story from "./pages/Story";
-import PublishBookStory from "./pages/Publish/PublishBookStory";
+import PublishBookStory from "./pages/Publish/components/PublishBookStory";
 
 function App() {
   return (

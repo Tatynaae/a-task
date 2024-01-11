@@ -6,7 +6,7 @@ import { useSignUp } from "../../context/SingUpContext";
 import Remember from "../../assets/icons/remember";
 import "./SignUp.scss";
 
-const SignUp = ({ close }) => {
+const SignUp = ({ close, path }) => {
   const navigate = useNavigate();
   const { signup, setSignup, login, setLogin } = useSignUp();
   const [loginForm, setLoginForm] = useState(false);
@@ -29,7 +29,7 @@ const SignUp = ({ close }) => {
   };
 
   const Relocate = () => {
-    navigate("/account");
+    navigate(path);
   };
   const SignUp = () => {
     ableSingup && Relocate();

@@ -63,7 +63,7 @@ const Publish = () => {
           </div>
         </div>
         {overlay ? (
-          <AppOverlay close={Close} children={<SignUp close={Close} />} />
+          <AppOverlay close={Close} children={<SignUp close={Close} path={'/account'}/>} />
         ) : null}
       </>
     );
@@ -109,7 +109,7 @@ const Publish = () => {
         </div>
       </div>
       {overlay ? (
-        <AppOverlay close={Close} children={<SignUp close={Close} />} />
+        <AppOverlay close={Close} children={<SignUp close={Close} path={'/account'}/>} />
       ) : null}
     </>;
   }

@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useBookStory } from "../../../context/BookStoryContext";
-import { ReactComponent as Image } from "../../../assets/icons/Image (Single).svg";
-import Button from "../../../components/UI/Button";
-import Element from "../../../components/UI/Element";
-import StoryTitle from "../../../components/UI/StoryTitle";
+import { useBookStory } from "../../../../context/BookStoryContext";
+import { ReactComponent as Image } from "../../../../assets/icons/Image (Single).svg";
+import Button from "../../../../components/UI/Button";
+import Element from "../../../../components/UI/Element";
+import StoryTitle from "../../../../components/UI/StoryTitle";
 import "./PublishBookStory.scss";
 
 const PublishBookStory = () => {
