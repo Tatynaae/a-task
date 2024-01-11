@@ -50,7 +50,6 @@ const Audio = () => {
   };
   const CloseOverlay = () => {
     setOverlay(false);
-    // setFile(null);
   };
 
   const OnImageChange = (e) => {
@@ -99,7 +98,9 @@ const Audio = () => {
     setStartRecord(true);
   };
 
-  
+  const nextNavigate = () => {
+    audioStory.audio && navigate("/publish-images");
+  };
 
   return (
     <>
@@ -178,7 +179,11 @@ const Audio = () => {
           </div>
         </form>
         <div className="btns">
-          <Button disabled={!able && !audioStory.audio} text={"Next question"} onClick={() => navigate("/publish-images")}/>
+          <Button
+            disabled={!audioStory.audio}
+            text={"Next question"}
+            onClick={nextNavigate}
+          />
           <Button text={"Skip  question"} variant="withoutBackgroundColor" />
         </div>
       </section>

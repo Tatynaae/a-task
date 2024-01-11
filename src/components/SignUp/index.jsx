@@ -6,7 +6,7 @@ import { useSignUp } from "../../context/SingUpContext";
 import Remember from "../../assets/icons/remember";
 import "./SignUp.scss";
 
-const SignUp = ({ close, path }) => {
+const SignUp = ({ close, path, clear }) => {
   const navigate = useNavigate();
   const { signup, setSignup, login, setLogin } = useSignUp();
   const [loginForm, setLoginForm] = useState(false);
@@ -19,6 +19,7 @@ const SignUp = ({ close, path }) => {
   let ableLogin = login.email.length > 0 && login.password.length > 0;
 
   useEffect(() => {
+
     const savedSignup = localStorage.getItem("signup");
     const savedLogin = localStorage.getItem("login");
 

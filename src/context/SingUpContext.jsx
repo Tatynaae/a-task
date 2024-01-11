@@ -18,8 +18,21 @@ export const SignUpProvider = ({ children }) => {
     password: "",
   });
 
+  const resetSignUpStory = () => {
+    setSignup({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    });
+    setLogin({
+      email: "",
+      password: "",
+    });
+  };
+
   return (
-    <SignUpContext.Provider value={{ signup, setSignup, login, setLogin }}>
+    <SignUpContext.Provider value={{ signup, setSignup, login, setLogin, resetSignUpStory }}>
       {children}
     </SignUpContext.Provider>
   );

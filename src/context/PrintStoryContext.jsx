@@ -13,9 +13,17 @@ export const PrintStoryProvider = ({ children }) => {
     images: new Array(5).fill(null),
     text: "",
   });
+  const resetPrintStory = () => {
+    setPrintStory({
+      title: "",
+      style: "",
+      images: new Array(5).fill(null),
+      text: "",
+    })
+  }
 
   return (
-    <PrintStoryContext.Provider value={{printStory,setPrintStory}}>
+    <PrintStoryContext.Provider value={{printStory,setPrintStory, resetPrintStory}}>
       {children}
     </PrintStoryContext.Provider>
   );

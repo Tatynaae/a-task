@@ -10,7 +10,7 @@ import Element from "../../../../components/UI/Element";
 import "./PublishImageStory.scss";
 
 const PublishImageStory = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { audioStory, setAudioStory } = useAudioStory();
   const [overlay, setOverlay] = useState(false);
 
@@ -27,7 +27,15 @@ const PublishImageStory = () => {
 
   const publishImages = () => {
     if (savedSignup || savedLogin) {
-      navigate('/account')
+      navigate("/account");
+      setAudioStory({
+        title: "",
+        previewImage: null,
+        style: "",
+        images: new Array(5).fill(null),
+        text: "",
+        audio: null,
+      });
     } else {
       setOverlay(true);
     }

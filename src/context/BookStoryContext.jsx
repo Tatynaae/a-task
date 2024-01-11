@@ -14,8 +14,20 @@ export const BookStoryProvider = ({ children }) => {
     images: new Array(5).fill(null),
     text: "",
   });
+
+  const resetBookStory = () => {
+    setBookStory({
+      title: "",
+      style: "",
+      preview: null,
+      images: new Array(5).fill(null),
+      text: "",
+    });
+  };
   return (
-    <BookStoryContext.Provider value={{ bookStory, setBookStory }}>
+    <BookStoryContext.Provider
+      value={{ bookStory, setBookStory, resetBookStory }}
+    >
       {children}
     </BookStoryContext.Provider>
   );

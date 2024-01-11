@@ -14,8 +14,17 @@ export const VideoStoryProvider = ({ children }) => {
     recordedVideo: null,
   });
 
+  const resetVideoStory = () => {
+    setVideoStory({
+      title: "",
+      style: "",
+      previewVideo: null,
+      recordedVideo: null,
+    });
+  };
+
   return (
-    <VideoStoryContext.Provider value={{ videoStory, setVideoStory }}>
+    <VideoStoryContext.Provider value={{ videoStory, setVideoStory, resetVideoStory }}>
       {children}
     </VideoStoryContext.Provider>
   );

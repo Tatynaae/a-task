@@ -15,9 +15,21 @@ export const AudioStoryProvider = ({ children }) => {
     text: "",
     audio: null,
   });
+  const resetAudioStory = () => {
+    setAudioStory({
+      title: "",
+      previewImage: null,
+      style: "",
+      images: new Array(5).fill(null),
+      text: "",
+      audio: null,
+    });
+  };
 
   return (
-    <AudioStoryContext.Provider value={{audioStory,setAudioStory}}>
+    <AudioStoryContext.Provider
+      value={{ audioStory, setAudioStory, resetAudioStory }}
+    >
       {children}
     </AudioStoryContext.Provider>
   );
