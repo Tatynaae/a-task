@@ -19,7 +19,7 @@ const SignUp = ({ close, path, clear }) => {
   let ableLogin = login.email.length > 0 && login.password.length > 0;
 
   useEffect(() => {
-
+    
     const savedSignup = localStorage.getItem("signup");
     const savedLogin = localStorage.getItem("login");
 

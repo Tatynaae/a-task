@@ -25,22 +25,22 @@ const Audio = () => {
   };
   const photos = [
     {
-      id: 1,
+      id: 0,
       icon: <Image />,
       image: audioStory.images[0],
     },
     {
-      id: 2,
+      id: 1,
       icon: <Image />,
       image: audioStory.images[1],
     },
     {
-      id: 3,
+      id: 2,
       icon: <Image />,
       image: audioStory.images[2],
     },
     {
-      id: 4,
+      id: 3,
       icon: <Image />,
       image: audioStory.images[3],
     },
@@ -57,6 +57,17 @@ const Audio = () => {
       setFile(URL.createObjectURL(e.target.files[0]));
       OpenOverlay();
     } else setOverlay(false);
+  };
+
+  const removeImage = (index) => {
+    const updatedImages = [...audioStory.images];
+    updatedImages[index] = null;
+
+    // Update the state with the new images array
+    setAudioStory({
+      ...audioStory,
+      images: updatedImages,
+    });
   };
 
   const SavePreviewModal = (croppedImage) => {
@@ -129,10 +140,7 @@ const Audio = () => {
                     alt="#"
                     onClick={() => setOverlay(true)}
                   />
-                  <div
-                    className="remove"
-                    // onClick={() => RemoveImage(0)}
-                  >
+                  <div className="remove" onClick={() => removeImage(4)}>
                     <X />
                   </div>
                 </div>
@@ -142,12 +150,12 @@ const Audio = () => {
               <div className="top">
                 {photos.map((el) => (
                   <div className="top--box" key={el.id}>
-                    {el.id !== 5 && el.image !== null && (
+                    {el.id !== 4 && el.image !== null && (
                       <div className="image">
                         <img src={el.image} alt="#" />
                         <div
                           className="remove"
-                          // onClick={() => RemoveImage(el.id)}
+                          onClick={() => removeImage(el.id)}
                         >
                           <X />
                         </div>

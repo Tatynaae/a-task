@@ -3,14 +3,22 @@ import { useNavigate } from "react-router-dom";
 import Title from "../../../components/UI/Title";
 import Button from "../../../components/UI/Button";
 import StoryType from "../../../components/UI/StoryType";
+import { useBookStory } from "../../../context/BookStoryContext";
+import { useAudioStory } from "../../../context/AudioStoryContext";
 import { ReactComponent as AudioType } from "../../../assets/icons/audio-type.svg";
 import { ReactComponent as VideoType } from "../../../assets/icons/video-type.svg";
 import { ReactComponent as PrintType } from "../../../assets/icons/print-type.svg";
 import { ReactComponent as BookType } from "../../../assets/icons/book-type.svg";
 import "./StoryTell.scss";
+import { usePrintStory } from "../../../context/PrintStoryContext";
+import { useVideoStory } from "../../../context/VideoStoryContext";
 
 const StoryTell = () => {
   const navigate = useNavigate();
+  const { resetBookStory } = useBookStory();
+  const { resetVideoStory } = useVideoStory();
+  const { resetPrintStory } = usePrintStory();
+  const { resetAudioStory } = useAudioStory();
   const [activeStory, setActiveStory] = useState(null);
   const [location, setLocation] = useState(null);
 
@@ -21,6 +29,10 @@ const StoryTell = () => {
 
   const StartButton = () => {
     navigate(location);
+    resetAudioStory();
+    resetBookStory();
+    resetPrintStory();
+    resetVideoStory();
   };
   const StoriesTell = [
     {
